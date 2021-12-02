@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Interactive Fiction Using QuestJS</title>
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    style-src 'unsafe-inline' 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
+    font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
+    script-src 'unsafe-inline' 'self';
+    img-src 'self';"
+  >
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+  
+  <script src="lib/_util.js"></script>
+  <script src="lib/_settings.js"></script>
+  <script>
+    let folder = 'game'
+    let loaded = false
+    if (window.location.search)
+    folder += '-' + window.location.search.substring(1)
+    document.writeln('<script src="' + folder + '/settings.js" onload="loaded=true"></scr' + "ipt>")
+  </script>
+  <script>
+    // New script element as we need the actions in the previous one to complete before we do this
+    if (loaded) settings.writeScript(folder)
+    if (!loaded) console.error("Trying to load \"" + folder + "/settings.js\" and not finding it. Does that folder exist?")
+  </script>
+  
+</head>
+
+
+
+<body>
+
+<h1 id="loading">Story loading, please wait...</h1>
+
+<div id="main">
+<div id="inner">
+<div id="output"></div>
+<div id="input"></div>
+</div>
+</div>
+
+<script>
+  if (loaded) io.createPanes();
+</script>
+
+<dialog id="dialog">
+  <form method="dialog">
+    <h4 id="dialog-title"></h4>
+    <hr/>
+    <div id="dialog-content"></div>
+    <div id="dialog-footer" style="text-align:right">
+    <hr/>
+    <button id="dialog-button" value="default">Confirm</button>
+    </div>
+  </form>
+</dialog>
+<div id="quest-map"></div>
+<div id="quest-image"></div>
+
+</body>
+</html>

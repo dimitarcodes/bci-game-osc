@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Antonio&family=Archivo+Black&family=Roboto+Condensed&display=swap');
+
+
+body {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.default-h {
+  font-family: 'Archivo Black', sans-serif;
+}
+
+.pane-div {
+  font-family: 'Antonio', sans-serif;
+}
+
