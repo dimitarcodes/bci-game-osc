@@ -432,7 +432,7 @@ const lang = {
   transit_go_to_dest:"{nv:char:press:true} the button; the door closes...",
 
   // Movement
-  go_successful:"{nv:char:head:true} {show:dir}.",
+  go_successful:"",
   not_that_way:"{nv:char:can't:true} go {show:dir}.",
   can_go:"{nv:char:think:true} {pv:char:can} go {exits}.",
   cannot_go_in:"{pv:item:be:true} not something {nv:char:can} get inside.",
