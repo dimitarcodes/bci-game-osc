@@ -1,22 +1,96 @@
 "use strict"
 
 createItem("me", PLAYER(), {
-  loc:"meeting_1",
+  loc:"introduction",
   synonyms:['me', 'myself'],
   examine: "An excited BCI student.",
 })
+
+createRoom("introduction", {
+  alias: 'Introduction',
+  desc:"Hi! Welcome to this interactive BCI experience! In this little game you will go through a short story "+
+  "and analysis pipeline. No fear, no 'spooky' code this time. The game is structured as follows: you move between states by performing certain actions, "+
+  "these actions can be performed by typing out what has to be done (e.g., 'plot frequency spectrun' / 'inspect .VMRK file' / 'apply PCA' etc.). "+
+  "It is important that you always start your action with one of the following words: perform/plot/apply. If at any point you are lost or unsure how things work, you can always type 'help'. " +
+  "<br> <br> Are you ready? Type: go to First Thesis Meeting ",
+  afterEnter: function(){
+    findCmd('MetaHint').script = function() {
+    metamsg("Go ahead - type 'Go to the first meeting' ")
+    return world.SUCCESS_NO_TURNSCRIPTS
+  }},
+  dests:[
+    new Exit('meeting_1')
+  ],
+})
+
+//begin game
 
 createRoom("meeting_1", {
   alias: 'First Thesis Meeting',
   desc:"Your silly thesis supervisor has bought some EEG data from some sketchy website. He just clicked 'Download' on the zip file and then " + 
   "cleared his browser history so now you have no idea what experiment the data came from and what it's specs are - task/markers/sampling rate/etc.",
-  //dirAlias: 'Meeting',
+  dirAlias: 'Meeting',
+  hintScript: 'ayy waddup',
+  synonyms: ['first meeting', 'thesis meeting'],
+  afterEnter: function(){
+    findCmd('MetaHint').script = function() {
+    metamsg("You need to figure out what the data is, you might as well ask your supervisor if they remember anything from the page they got it from - such as the author, name of the website, etc.")
+    return world.SUCCESS_NO_TURNSCRIPTS
+  }},
   dests:[
-    new Exit('plot_raw_data'),
-    new Exit('plot_raw_spectrum')
+    new Exit('origin'),
+    new Exit('author'),
+    new Exit('experiment')
   ],
 
 })
+
+// SOCIAL ENGINEERING PHASE
+
+createRoom("origin", {
+  alias: 'Ask about the origin of the data',
+  desc: 'Your Supervisor: The internet, duh?',
+  dirAlias: 'Origin of the data',
+  synonyms: ['origin of the data', 'where the data came from', 'where they got the data', 'where he got the data'],
+  dests:[
+    new Exit('experiment'),
+    new Exit('author')
+  ],
+})
+
+createRoom("author", {
+  alias: 'Ask about the authors of the data',
+  desc: 'How should I know? - says your supervisor, slightly annoyed at the stupid question',
+  dirAlias: 'Origin of the data',
+  synonyms: ['authors..', 'who created..', 'who author.. ', 'who were the authors..'],
+  dests:[
+    new Exit('origin'),
+    new Exit('experiment')
+  ],
+})
+
+createRoom("experiment", {
+  alias: 'Ask about the experimental set up that produced this data',
+  desc: 'How should I know? - says your supervisor, slightly annoyed at the stupid question',
+  dirAlias: 'Origin of the data',
+  synonyms: ['experiment ..', 'what the experiment was', 'what eperiment +'],
+  dests:[
+    new Exit('author'),
+    new Exit('origin')
+  ],
+})
+
+createRoom("preprocessing", {
+  alias: 'Preprocessing',
+  desc: 'How should I know? - says your supervisor, slightly annoyed at the stupid question',
+  dirAlias: 'Origin of the data',
+  synonyms: ['experiment ..', 'what the experiment was', 'what eperiment +'],
+  dests:[
+    new Exit('author'),
+    new Exit('origin')
+  ],
+})
+
 
 createRoom('plot_raw_data', {
   headingAlias:'Raw Data Plot',
@@ -24,7 +98,7 @@ createRoom('plot_raw_data', {
   afterEnter: function(){
     picture('eeg_raw.png', 600)
   },
-  synonyms:['raw data','plot', 'plot the data'],
+  synonyms:['raw', 'raw data', 'the raw data', 'the data'],
   //dirAlias: 'Plotting the raw data',
   dests:[
     new Exit('plot_raw_spectrum'),
@@ -60,13 +134,3 @@ createRoom('lp_filter', {
   ],
 })
 
-createRoom('do_a_Nietzsche', {
-  headingAlias:'Do a Nietzsche',
-  desc:'You\'ve killed God.',
-  afterEnter: function(){
-  },
-  synonyms:['kill God'],
-  //dirAlias: 'Plotting the raw data',
-  dests:[
-  ],
-})

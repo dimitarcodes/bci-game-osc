@@ -453,7 +453,7 @@ const lang = {
 
 
   // General command messages
-  not_known_msg:"Oepsie woepsie! You tried to perform an action that we didn't expect you to do!",
+  not_known_msg:"Oopsie woopsie! You tried to perform an action that we didn't expect you to do!",
   disambig_msg:"Which do you mean?",
   no_multiples_msg:"You cannot use multiple objects with that command.",
   nothing_msg:"Nothing there to do that with.",
@@ -636,37 +636,19 @@ const lang = {
 
   helpScript:function() {
     if (settings.textInput) {
-      metamsg("Type commands in the command bar to interact with the world. Using the arrow keys you can scroll up and down though your previous commands.");      
-      metamsg("{b:Movement:} To move, use the eight compass directions (or just {class:help-eg:N}, {class:help-eg:NE}, etc.). When \"Num Lock\" is on, you can use the number pad for all eight compass directions. Also try - and + for {class:help-eg:UP} and {class:help-eg:DOWN}, / and * for {class:help-eg:IN} and {class:help-eg:OUT}.");
-      metamsg("{b:Other commands:} You can also {class:help-eg:LOOK} (or just {class:help-eg:L} or 5 on the number pad), {class:help-eg:HELP} (or {class:help-eg:?}) or {class:help-eg:WAIT} (or {class:help-eg:Z} or the dot on the number pad). Other commands are generally of the form {class:help-eg:GET HAT} or {class:help-eg:PUT THE BLUE TEAPOT IN THE ANCIENT CHEST}. Experiment and see what you can do!");
-      metamsg("{b:Using items: }You can use {class:help-eg:ALL} and {class:help-eg:ALL BUT} with some commands, for example {class:help-eg:TAKE ALL}, and {class:help-eg:PUT ALL BUT SWORD IN SACK}. You can also use pronouns, so {class:help-eg:LOOK AT MARY}, then {class:help-eg:TALK TO HER}. The pronoun will refer to the last subject in the last successful command, so after {class:help-eg:PUT HAT AND FUNNY STICK IN THE DRAWER}, '{class:help-eg:IT}' will refer to the funny stick (the hat and the stick are subjects of the sentence, the drawer was the object).");
-      metamsg("{b:Characters: }If you come across another character, you can ask him or her to do something. Try things like {class:help-eg:MARY,PUT THE HAT IN THE BOX}, or {class:help-eg:TELL MARY TO GET ALL BUT THE KNIFE}. Depending on the game you may be able to {class:help-eg:TALK TO} a character, to {class:help-eg:ASK} or {class:help-eg:TELL} a character {class:help-eg:ABOUT} a topic, or just {class:help-eg:SAY} something and they will respond..");
-      metamsg("{b:Meta-commands:} Type {class:help-eg:ABOUT} to find out about the author, {class:help-eg:SCRIPT} to learn about transcripts or {class:help-eg:SAVE} to learn about saving games. Use {class:help-eg:WARNINGS} to see any applicable sex, violence or trigger warnings.")
-      let s = "You can also use {class:help-eg:BRIEF/TERSE/VERBOSE} to control room descriptions. Use {class:help-eg:SILENT} to toggle sounds and music (if implemented)."
-      if (typeof map !== "undefined") s += " Use {class:help-eg:MAP} to toggle/show the map."
-      if (typeof imagePane !== "undefined") s += " Use {class:help-eg:IMAGES} to toggle/show the image pane."
-      metamsg(s)
-      metamsg("{b:Accessibility:}  Type {class:help-eg:DARK} to toggle dark mode or {class:help-eg:SPOKEN} to toggle the text being read out. Use {class:help-eg:FONT} to toggle all the fonts the author carefully chose to a standard sans-serif font.")
-      metamsg("{b:Shortcuts:} You can often just type the first few characters of an item's name and Quest will guess what you mean.  If fact, if you are in a room with Brian, who is holding a ball, and a box, Quest should be able to work out that {class:help-eg:B,PUT B IN B} mean you want Brian to put the ball in the box.")
-      metamsg("You can use the up and down arrows to scroll back though your previous typed commands - especially useful if you realise you spelled something wrong. If you do not have arrow keys, use {class:help-eg:OOPS} to retrieve the last typed command so you can edit it. Use {class:help-eg:AGAIN} or just {class:help-eg:G} to repeat the last typed command.")
-      metamsg("See also {link:here:https://github.com/ThePix/QuestJS/wiki/How-To-Play}, which will open in a new tab.")      
+      metamsg("No fear! We're here to help. We hope that this clears everything up:");      
+      metamsg("{b:Playing the game:} To move between states perform actions by starting a command with {class:help-eg:PERFORM}/{class:help-eg:APPLY}/{class:help-eg:PLOT}/{class:help-eg:INSPECT}/{class:help-eg:ASK} (note that commands are not case sensitive).");
+      metamsg("{b:Oopsie woopsie:} The action you're trying to perform is either not something you should be doing right now or misspelled. The actions which you can perform differ per state of the game.");
+      metamsg("{b:Hint/clue:} type {class:help-eg:HINT} / {class:help-eg:CLUE} to find out what possible actions there are in the current state.");
+      metamsg("{b:Hackerman:} type {class:help-eg:DARK} to embrace your inner hackerman (this is a toggle, type dark again to go back).");
+      metamsg("{b:Accessibility:} type {class:help-eg:SPOKEN} to toggle the text being read out. Use {class:help-eg:FONT} to toggle the font.")
+      metamsg("{b:About:} Type {class:help-eg:ABOUT} to learn about the author.")
+      metamsg("Anything still unclear? {link:See this link:https://github.com/ThePix/QuestJS/wiki/How-To-Play}, which will open in a new tab. Or, ask your TAs 🧠.")      
     }
-    if (settings.panes !== "none") {
-      if (settings.inventoryPane) {
-        metamsg("{b:User Interface:} To interact with an object, click on its name in the side pane, and a set of possible actions will appear under it. Click on the appropriate action.")
-      }
-      if (settings.compassPane) {
-        if (settings.symbolsForCompass) {
-          metamsg("You can also use the compass rose at the top to move around. Click the eye symbol, &#128065;, to look at you current location, the clock symbol to wait or &#128712; for help.")
-        }
-        else {
-          metamsg("You can also use the compass rose at the top to move around. Click 'Lk' to look at you current location, 'Z' to wait or '?' for help.")
-        }
-      }
-    }
-    if (settings.additionalHelp !== undefined) {
-      for (const s of settings.additionalHelp) metamsg(s)
-    }
+
+    // if (settings.additionalHelp !== undefined) {
+    //   for (const s of settings.additionalHelp) metamsg(s)
+    // }
     return world.SUCCESS_NO_TURNSCRIPTS
   },
 
