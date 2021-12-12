@@ -11,7 +11,7 @@ createRoom("introduction", {
   desc:"Hi! Welcome to this interactive BCI experience! In this little game you will go through a short story "+
   "and analysis pipeline. No fear, no 'spooky' code this time. The game is structured as follows: you move between states by performing certain actions, "+
   "these actions can be performed by typing out what has to be done (e.g., 'plot frequency spectrun' / 'inspect .VMRK file' / 'apply PCA' etc.). "+
-  "It is important that you always start your action with one of the following words: perform/plot/apply. If at any point you are lost or unsure how things work, you can always type 'help'. " +
+  "It is important that you always start your action with one of the following words: perform/plot/apply/inspect/use/ask (about). If at any point you are lost or unsure how things work, you can always type 'help'. " +
   "<br> <br> Are you ready? Type: go to First Thesis Meeting ",
   afterEnter: function(){
     findCmd('MetaHint').script = function() {

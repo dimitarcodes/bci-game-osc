@@ -4,7 +4,7 @@ parser.isRoom =function(o) { return o.room }
 
 commands.unshift(new Cmd('GoTo', {
   npcCmd:true,
-  regex:/^(?:go to|go|perform|plot|apply|inspect|ask about the|ask about|ask) (.+)$/,
+  regex:/^(?:go to|go|perform|plot|apply|inspect|use|ask about the|ask about|ask) (.+)$/,
   objects:[
     {scope:parser.isRoom}
   ],
@@ -18,6 +18,6 @@ commands.unshift(new Cmd('GoTo', {
         return ex.use(player, ex) ? world.SUCCESS : world.FAILED
       }
     }
-    return failedmsg("{pv:item:be:true} is... something you probably shouldn't be doing right now.", {item:room})
+    return failedmsg("Oopsie woopsie! You tried to perform an action that we didn't expect you to do!", {item:room})
   },
 }))
