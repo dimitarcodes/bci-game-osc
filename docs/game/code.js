@@ -4,7 +4,7 @@ parser.isRoom =function(o) { return o.room }
 
 commands.unshift(new Cmd('GoTo', {
   npcCmd:true,
-  regex:/^(?:go to|go|perform|plot|apply|inspect|ask about the| ask about|ask) (.+)$/,
+  regex:/^(?:go to|go|perform|plot|apply|inspect|ask about the|ask about|ask) (.+)$/,
   objects:[
     {scope:parser.isRoom}
   ],

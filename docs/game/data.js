@@ -29,9 +29,10 @@ createRoom("meeting_1", {
   alias: 'First Thesis Meeting',
   desc:"Your silly thesis supervisor has bought some EEG data from some sketchy website. He just clicked 'Download' on the zip file and then " + 
   "cleared his browser history so now you have no idea what experiment the data came from and what it's specs are - task/markers/sampling rate/etc.",
-  dirAlias: 'Meeting',
+  dirAlias: "rat",
   hintScript: 'ayy waddup',
-  synonyms: ['first meeting', 'thesis meeting'],
+  regex:/^(.*)(meeting|thesis)(.*)$/,
+  //synonyms: ['first meeting', 'thesis meeting'],
   afterEnter: function(){
     findCmd('MetaHint').script = function() {
     metamsg("You need to figure out what the data is, you might as well ask your supervisor if they remember anything from the page they got it from - such as the author, name of the website, etc.")
@@ -47,47 +48,91 @@ createRoom("meeting_1", {
 
 // SOCIAL ENGINEERING PHASE
 
+
+let socing = 1; 
+let origin_dests = [
+  new Exit('experiment'),
+  new Exit('author')
+]
+console.log(origin_dests)
+
 createRoom("origin", {
   alias: 'Ask about the origin of the data',
   desc: 'Your Supervisor: The internet, duh?',
+  afterEnter: function(){
+    socing = socing*2;
+  },
   dirAlias: 'Origin of the data',
   synonyms: ['origin of the data', 'where the data came from', 'where they got the data', 'where he got the data'],
   dests:[
     new Exit('experiment'),
-    new Exit('author')
+    new Exit('author'),
+    new Exit('preprocessing', {
+      simpleUse:function(char){
+        if (socing % 30 === 0){
+          return util.defaultSimpleExitUse(char, this)
+        }else return falsemsg("You can probably still explore a bit more ;)")
+      }
+    })
   ],
 })
 
 createRoom("author", {
   alias: 'Ask about the authors of the data',
   desc: 'How should I know? - says your supervisor, slightly annoyed at the stupid question',
+  afterEnter: function(){
+    socing = socing*3
+    if (socing % 30 === 0){
+      console.log('we can go to preprocessing')
+    }
+  },
   dirAlias: 'Origin of the data',
   synonyms: ['authors..', 'who created..', 'who author.. ', 'who were the authors..'],
   dests:[
     new Exit('origin'),
-    new Exit('experiment')
+    new Exit('experiment'),
+    new Exit('preprocessing', {
+      simpleUse:function(char){
+        if (socing % 30 === 0){
+          return util.defaultSimpleExitUse(char, this)
+        }else return falsemsg("You can probably still explore a bit more ;)")
+      }
+    })
   ],
 })
 
 createRoom("experiment", {
   alias: 'Ask about the experimental set up that produced this data',
+  afterEnter: function(){
+    socing = socing*5;
+    if (socing % 30 === 0){
+      console.log('we can go to preprocessing')
+      //experiment.dests.append(new Exit('preprocessing'))
+    }
+  },
   desc: 'How should I know? - says your supervisor, slightly annoyed at the stupid question',
   dirAlias: 'Origin of the data',
   synonyms: ['experiment ..', 'what the experiment was', 'what eperiment +'],
   dests:[
     new Exit('author'),
-    new Exit('origin')
+    new Exit('origin'),
+    new Exit('preprocessing', {
+      simpleUse:function(char){
+        if (socing % 30 === 0){
+          return util.defaultSimpleExitUse(char, this)
+        }else return falsemsg("You can probably still explore a bit more ;)")
+      }
+    })
   ],
 })
 
 createRoom("preprocessing", {
   alias: 'Preprocessing',
-  desc: 'How should I know? - says your supervisor, slightly annoyed at the stupid question',
+  desc: 'OK LETS MOVE ON',
   dirAlias: 'Origin of the data',
   synonyms: ['experiment ..', 'what the experiment was', 'what eperiment +'],
   dests:[
-    new Exit('author'),
-    new Exit('origin')
+    new Exit('plot_raw_data')
   ],
 })
 
