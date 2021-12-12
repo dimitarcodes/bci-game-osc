@@ -74,7 +74,7 @@ parser.parseSingle = function(inputText) {
     parser.currentCommand = res;
   }
   
-  // Need to disambiguate, until each of the lowest level lists has exactly one member
+  //Need to disambiguate, until each of the lowest level lists has exactly one member
   let needToDisAmbigFlag = false
   for (let i = 0; i < parser.currentCommand.tmp.objects.length; i++) {
     if (!Array.isArray(parser.currentCommand.tmp.objects[i])) continue

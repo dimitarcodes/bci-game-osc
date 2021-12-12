@@ -454,7 +454,7 @@ const lang = {
 
   // General command messages
   not_known_msg:"Oopsie woopsie! You tried to perform an action that we didn't expect you to do!",
-  disambig_msg:"Which do you mean?",
+  disambig_msg:"You seem to be on the right track. Either the command is incomplete or the action shouldn't be performed yet.",
   no_multiples_msg:"You cannot use multiple objects with that command.",
   nothing_msg:"Nothing there to do that with.",
   general_obj_error:"So I kind of get what you want to do, but not what you want to do it with.",
@@ -527,7 +527,7 @@ const lang = {
 
   // Used deep in the parser, so prefer to use function, rather than string
   object_unknown_msg:function(name) {
-    return name + " is... something you probably shouldn't be doing right now.";
+    return "Oopsie woopsie! You tried to perform an action '" + name + "' that we didn't expect you to do!";
   },
 
 
@@ -637,13 +637,13 @@ const lang = {
   helpScript:function() {
     if (settings.textInput) {
       metamsg("No fear! We're here to help. We hope that this clears everything up:");      
-      metamsg("{b:Playing the game:} To move between states perform actions by starting a command with {class:help-eg:PERFORM}/{class:help-eg:APPLY}/{class:help-eg:PLOT}/{class:help-eg:INSPECT}/{class:help-eg:ASK} (note that commands are not case sensitive).");
+      metamsg("{b:Playing the game:} To move between states perform actions by starting a command with {class:help-eg:PERFORM}/{class:help-eg:APPLY}/{class:help-eg:PLOT}/{class:help-eg:INSPECT}/{class:help-eg:USE}/{class:help-eg:ASK} (note that commands are not case sensitive).");
       metamsg("{b:Oopsie woopsie:} The action you're trying to perform is either not something you should be doing right now or misspelled. The actions which you can perform differ per state of the game.");
       metamsg("{b:Hint/clue:} type {class:help-eg:HINT} / {class:help-eg:CLUE} to find out what possible actions there are in the current state.");
       metamsg("{b:Hackerman:} type {class:help-eg:DARK} to embrace your inner hackerman (this is a toggle, type dark again to go back).");
       metamsg("{b:Accessibility:} type {class:help-eg:SPOKEN} to toggle the text being read out. Use {class:help-eg:FONT} to toggle the font.")
       metamsg("{b:About:} Type {class:help-eg:ABOUT} to learn about the author.")
-      metamsg("Anything still unclear? {link:See this link:https://github.com/ThePix/QuestJS/wiki/How-To-Play}, which will open in a new tab. Or, ask your TAs 🧠.")      
+      metamsg("Anything still unclear? Ask your TAs 🧠.")      
     }
 
     // if (settings.additionalHelp !== undefined) {
