@@ -85,15 +85,15 @@ parser.parseSingle = function(inputText) {
         }
         else {
           needToDisAmbigFlag = true;
-          parser.currentCommand.tmp.disambiguate1 = i;
-          parser.currentCommand.tmp.disambiguate2 = j;
-          const fn = io.menuFunctions[settings.funcForDisambigMenu]
-          fn(lang.disambig_msg, parser.currentCommand.tmp.objects[i][j], function(result) {
-            parser.currentCommand.tmp.objects[parser.currentCommand.tmp.disambiguate1][parser.currentCommand.tmp.disambiguate2] = result
-            parser.parseSingle(null)
-          }, function(input) {
-            parser.parse(input)
-          });
+          // parser.currentCommand.tmp.disambiguate1 = i;
+          // parser.currentCommand.tmp.disambiguate2 = j;
+          // const fn = io.menuFunctions[settings.funcForDisambigMenu]
+          // fn(lang.disambig_msg, parser.currentCommand.tmp.objects[i][j], function(result) {
+          //   parser.currentCommand.tmp.objects[parser.currentCommand.tmp.disambiguate1][parser.currentCommand.tmp.disambiguate2] = result
+          //   parser.parseSingle(null)
+          // }, function(input) {
+          //   parser.parse(input)
+          // });
         }
       }
     }
@@ -101,6 +101,8 @@ parser.parseSingle = function(inputText) {
   
   if (!needToDisAmbigFlag) {
     parser.execute();
+  }else{
+    msg(lang.disambig_msg)
   }
 };
 
