@@ -1,75 +1,71 @@
 "use strict"
 
 createItem("me", PLAYER(), {
-  loc:"introduction",
+  loc:"A0",
   synonyms:['me', 'myself'],
   examine: "An excited BCI student.",
 })
 
-createRoom("introduction", {
-  alias: 'Introduction',
-  desc:"Hi! Welcome to this interactive BCI experience! In this little game you will go through a short story "+
-  "and analysis pipeline. No fear, no 'spooky' code this time. The game is structured as follows: you move between states by performing certain actions, "+
-  "these actions can be performed by typing out what has to be done (e.g., 'plot frequency spectrun' / 'inspect .VMRK file' / 'apply PCA' etc.). "+
-  "It is important that you always start your action with one of the following words: perform/plot/apply/inspect/use/ask (about). If at any point you are lost or unsure how things work, you can always type 'help'. " +
-  "<br> <br> Are you ready? Type: go to First Thesis Meeting ",
+createRoom("A0", {
+  headingAlias: 'Introduction',
+  desc:"Hi! Welcome to this interactive BCI experience! In this little game you will go through a short story and analysis pipeline. No fear, no 'spooky' code this time. The game is structured as follows: you move between states by performing certain actions, these actions can be performed by typing out what has to be done (e.g., 'plot frequency spectrun' / 'inspect marker file' / 'apply PCA' etc.). It is important that you always start your action with one of the following words: perform/plot/apply. If at any point you are lost or unsure how things work, you can always type 'help'. <br> <br> Are you ready? Type: 'go to first thesis meeting'",
   afterEnter: function(){
     findCmd('MetaHint').script = function() {
-    metamsg("Go ahead - type 'Go to the first meeting' ")
+    metamsg("Go ahead - type 'go to the first meeting' ")
     return world.SUCCESS_NO_TURNSCRIPTS
   }},
   dests:[
-    new Exit('meeting_1')
+    new Exit('A1')
   ],
 })
 
 //begin game
 
-createRoom("meeting_1", {
-  alias: 'First Thesis Meeting',
-  desc:"Your silly thesis supervisor has bought some EEG data from some sketchy website. He just clicked 'Download' on the zip file and then " + 
-  "cleared his browser history so now you have no idea what experiment the data came from and what it's specs are - task/markers/sampling rate/etc.",
-  dirAlias: "rat",
-  hintScript: 'ayy waddup',
+createRoom("A1", {
+  headingAlias: 'The First Thesis Meeting',
+  desc: "Your silly thesis supervisor has bought some EEG data from some sketchy website. He just clicked 'Download' on the zip file and then cleared his browser history. Now you have no idea what experiment the data came from and what it's specs are. Your supervisor is persistent in that you should be able to get a good model from this data. 'I had a PhD student that worked on that data! When he had a breakthrough, he called me that he was on his way to show me, but then mysterously vanished... So now it's up to you to do put your BCI skills to some good use, go get me some results!' <br> <br> You: 'Where exactly did you get the data from?' <br> Sup: 'Uuuuuhm.... the internet?'  <br> You: 'Do you remember what the experiment was?' <br> Sup: 'Nope, but inspecting the data and looking at the markers should be a good starting point, off you go!' ",
   regex:/^(.*)(meeting|thesis)(.*)$/,
-  //synonyms: ['first meeting', 'thesis meeting'],
   afterEnter: function(){
     findCmd('MetaHint').script = function() {
-    metamsg("You need to figure out what the data is, you might as well ask your supervisor if they remember anything from the page they got it from - such as the author, name of the website, etc.")
-    return world.SUCCESS_NO_TURNSCRIPTS
+      metamsg("Hmm.. the supervisor told me to inspect the data and especially the markers, I guess I'll should do that")
+      return world.SUCCESS_NO_TURNSCRIPTS
   }},
   dests:[
-    new Exit('origin'),
-    new Exit('author'),
-    new Exit('experiment')
+    new Exit('A2'),
+    new Exit('A3'),
+    new Exit('A4'),
+    new Exit('A5'),
   ],
 
 })
 
-// SOCIAL ENGINEERING PHASE
+// EXPLORATORY PHASE
 
+let b_gate = 1; 
 
-let socing = 1; 
-let origin_dests = [
-  new Exit('experiment'),
-  new Exit('author')
-]
-console.log(origin_dests)
-
-createRoom("origin", {
-  alias: 'Ask about the origin of the data',
-  desc: 'Your Supervisor: The internet, duh?',
+createRoom("A2", {
+  headingAlias: 'Plotting the data',
+  desc: "You plot the raw data and the raw data's frequency spectrum (PSD)",
   afterEnter: function(){
-    socing = socing*2;
+    if (settings.playMode == 'dev' && b_gate % 6 === 0){
+      console.log('next bottleneck accessible')
+    }
+    findCmd('MetaHint').script = function() {
+      metamsg("Remember, this 50Hz peak isn't due to brain activity.")
+      return world.SUCCESS_NO_TURNSCRIPTS
+    }
+    picture('A2_1.png', 600)
+    picture('A2_2.png', 600)
   },
-  dirAlias: 'Origin of the data',
-  synonyms: ['origin of the data', 'where the data came from', 'where they got the data', 'where he got the data'],
+  regex:/^(.*)(data|frequency spectrum|spectrum|spectrogram|PSD)(.*)$/,
+  synonyms: [''],
   dests:[
-    new Exit('experiment'),
-    new Exit('author'),
-    new Exit('preprocessing', {
+    new Exit('A3'),
+    new Exit('A4'),
+    new Exit('A5'),
+    new Exit('B0', {
       simpleUse:function(char){
-        if (socing % 30 === 0){
+        if (b_gate % 6 === 0){
           return util.defaultSimpleExitUse(char, this)
         }else return falsemsg("You can probably still explore a bit more ;)")
       }
@@ -77,48 +73,36 @@ createRoom("origin", {
   ],
 })
 
-createRoom("author", {
-  alias: 'Ask about the authors of the data',
-  desc: 'How should I know? - says your supervisor, slightly annoyed at the stupid question',
-  afterEnter: function(){
-    socing = socing*3
-    if (socing % 30 === 0){
-      console.log('we can go to preprocessing')
+
+createRoom("A3", {
+  headingAlias: 'Exploring the markers',
+  desc: "You take a look at the markers encoded in the metadata of the files, it appears that there are a few markers used in this dataset:  <br> Event - Description <br>276 - Idling EEG (eyes open) <br>277- Idling EEG (eyes closed) <br>768 - Start of a trial <br>769 - Cue onset left (class 1) <br>770 - Cue onset right (class 2) <br>783 - Cue unknown <br>1023 - Rejected trial <br>1072 - Eye movements <br>32766 - Start of a new run <br> <br> You also see that there is roughly 10 seconds between markers. That is quite long for events?",
+  afterFirstEnter: function(){
+    b_gate = b_gate*2
+    if (settings.playMode==='dev'){
+      console.log("success marker")
+      if (b_gate % 6 === 0){
+        console.log('next bottleneck accessible')
+      }
     }
   },
-  dirAlias: 'Origin of the data',
-  synonyms: ['authors..', 'who created..', 'who author.. ', 'who were the authors..'],
-  dests:[
-    new Exit('origin'),
-    new Exit('experiment'),
-    new Exit('preprocessing', {
-      simpleUse:function(char){
-        if (socing % 30 === 0){
-          return util.defaultSimpleExitUse(char, this)
-        }else return falsemsg("You can probably still explore a bit more ;)")
-      }
-    })
-  ],
-})
-
-createRoom("experiment", {
-  alias: 'Ask about the experimental set up that produced this data',
   afterEnter: function(){
-    socing = socing*5;
-    if (socing % 30 === 0){
-      console.log('we can go to preprocessing')
-      //experiment.dests.append(new Exit('preprocessing'))
+    if (settings.playMode == 'dev' && b_gate % 6 === 0){
+      console.log('next bottleneck accessible')
+    }
+    findCmd('MetaHint').script = function() {
+      metamsg("What does timing of the events tell us about the type of paradigm? Is it an ERP experiment? Or are we in the oscillatory domain?")
+      return world.SUCCESS_NO_TURNSCRIPTS
     }
   },
-  desc: 'How should I know? - says your supervisor, slightly annoyed at the stupid question',
-  dirAlias: 'Origin of the data',
-  synonyms: ['experiment ..', 'what the experiment was', 'what eperiment +'],
+  regex:/^(.*)(events|markers)(.*)$/,
   dests:[
-    new Exit('author'),
-    new Exit('origin'),
-    new Exit('preprocessing', {
+    new Exit('A2'),
+    new Exit('A4'),
+    new Exit('A5'),
+    new Exit('B0', {
       simpleUse:function(char){
-        if (socing % 30 === 0){
+        if (b_gate % 6 === 0){
           return util.defaultSimpleExitUse(char, this)
         }else return falsemsg("You can probably still explore a bit more ;)")
       }
@@ -126,29 +110,75 @@ createRoom("experiment", {
   ],
 })
 
-createRoom("preprocessing", {
-  alias: 'Preprocessing',
-  desc: 'OK LETS MOVE ON',
-  dirAlias: 'Origin of the data',
-  synonyms: ['experiment ..', 'what the experiment was', 'what eperiment +'],
-  dests:[
-    new Exit('plot_raw_data')
-  ],
-})
-
-
-createRoom('plot_raw_data', {
-  headingAlias:'Raw Data Plot',
-  desc:'You plot the raw unprocessed data and this is what you get:',
-  afterEnter: function(){
-    picture('eeg_raw.png', 600)
+createRoom("A4", {
+  headingAlias: 'Sampling frequency',
+  afterFirstEnter: function(){
+    b_gate = b_gate*3
+    if (settings.playMode==='dev'){
+      console.log("success marker")
+      if (b_gate % 6 === 0){
+        console.log('next bottleneck accessible')
+      }
+    }
   },
-  synonyms:['raw', 'raw data', 'the raw data', 'the data'],
-  //dirAlias: 'Plotting the raw data',
+  afterEnter: function(){
+    if (settings.playMode == 'dev' && b_gate % 6 === 0){
+      console.log('next bottleneck accessible')
+    }
+  },
+  desc: "You take a look at the sampling frequency encoded in the metadata of the files, it appears that the data was sampled at 250Hz.",
+  regex:/^(.*)(sampling frequency|sampling rate)(.*)$/,
   dests:[
-    new Exit('plot_raw_spectrum'),
+    new Exit('A2'),
+    new Exit('A3'),
+    new Exit('A5'),
+    new Exit('B0', {
+      simpleUse:function(char){
+        if (b_gate % 6 === 0){
+          return util.defaultSimpleExitUse(char, this)
+        }else return falsemsg("You can probably still explore a bit more ;)")
+      }
+    })
   ],
 })
+
+createRoom('A5', {
+  headingAlias:'Channels',
+  desc: "There are 22 EEG channels, sadly their naming scheme isn't very informative about the layout",
+  afterEnter: function(){
+    if (settings.playMode == 'dev' && b_gate % 6 === 0){
+      console.log('next bottleneck accessible')
+    }
+  },
+  regex:/^(.*)(channels)(.*)$/,
+  dests:[
+    new Exit('A2'),
+    new Exit('A3'),
+    new Exit('A4'),
+    new Exit('B0', {
+      simpleUse:function(char){
+        if (b_gate % 6 === 0){
+          return util.defaultSimpleExitUse(char, this)
+        }else return falsemsg("You can probably still explore a bit more ;)")
+      }
+    })
+  ],
+})
+
+
+createRoom("B0", {
+  headingAlias: 'Preprocessing Phase',
+  desc: 'OKEEEE LESGO',
+  regex:/^(.*)(preprocessing)(.*)$/,
+  dests:[
+  ],
+})
+
+
+
+
+
+// DEPRECATED
 
 createRoom('plot_raw_spectrum', {
   headingAlias:'Raw Data Spectrum Plot',
