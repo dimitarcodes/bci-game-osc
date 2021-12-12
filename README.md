@@ -6,11 +6,12 @@
 let socing = 1; // use a variable to check if other rooms have been visited
 createRoom("room_name", {
   alias: 'The actual room name that will be printed',
+  headingalias: 'The actual room name that will be printed',
   desc: 'Text that will be displayed upon entering the room',
   afterFirstEnter: function(){
     // stuff inside this function will happen only after the first time the player enters the room
     socing = socing*3 // mark the room as visited using prime integer multiplication
-  }
+  },
   afterEnter: function(){
     // stuff inside this function will happen every time the player enters the room entering
     msg("This will print a message)
