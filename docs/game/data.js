@@ -264,10 +264,12 @@ createRoom('B3', {
   ]
 })
 
+//2
 createRoom('B4', {
   headingAlias: 'Downsampling',
   desc: "You down-sample the data to 100Hz. Why can we do this? Will it not cause important information to be lost?",
-  afterEnter: function(){
+  afterFirstEnter: function(){
+    c_gate = c_gate * 2
   },
   regex:/^(.*)(resample|downsample)(.*)$/,
   dests : [
@@ -305,8 +307,12 @@ createRoom('B5A', {
   dests : []
 })
 
+//3
 createRoom('B5B', {
   headingAlias: '[7-20] Hz band-pass filter',
+  afterFirstEnter: function(){
+    c_gate = c_gate*3
+  },
   desc: "You applied a band pass filter that limited the frequency contents to the [7-20] Hz band. Hopefully you did this because you know this is a motor imagery task and attempted to preserve content related to this task and didn't just guess the answer..",
   afterEnter: function(){
   },
@@ -321,12 +327,15 @@ createRoom('B5B', {
   ]
 })
 
+
+// 5
 createRoom('B6', {
-  headingAlias: 'Spectral filtering',
-  desc: "",
-  afterEnter: function(){
+  headingAlias: 'Cut data into epochs',
+  desc: "You cut the data into epochs of [-1, 7]s, such that each epoch contains the EEG-signals of one of the two classes. Remember the markers, what were the classes?",
+  afterFirstEnter: function(){
+    c_gate = c_gate * 5
   },
-  regex:/^(.*)(filter A)(.*)$/,
+  regex:/^(.*)(epoch)(.*)$/,
   dests : [
     new Exit('B1'),
     new Exit('B2'),
@@ -338,18 +347,12 @@ createRoom('B6', {
 })
 
 createRoom('C0', {
-  headingAlias: 'Spectral filtering',
+  headingAlias: 'Spatial filtering section',
   desc: "",
   afterEnter: function(){
   },
-  regex:/^(.*)(filter A)(.*)$/,
+  regex:/^(.*)(spatial)(.*)$/,
   dests : [
-    new Exit('B1'),
-    new Exit('B2'),
-    new Exit('B3'),
-    new Exit('B5'),
-    new Exit('B6'),
-    new Exit('C0')
   ]
 })
 
