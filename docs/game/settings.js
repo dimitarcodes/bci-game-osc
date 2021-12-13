@@ -1,8 +1,8 @@
 "use strict"
 
 settings.title = "The Mad Thesis Supervisor"
-settings.author = "Da TAs"
-settings.version = "0.3"
+settings.author = "Da TAs 😎"
+settings.version = "0.4"
 settings.thanks = ["Michael Tangermann and Jordy Thielen for getting us the extra $$$"]
 settings.warnings = "No warnings have been set for this game."
 settings.playMode = "dev"
@@ -35,16 +35,39 @@ settings.roomCreateFunc = function(o) {
 
 const walkthroughs = {
     a:[
-      "go to meeting",
-      "explore markers",
-      "explore sampling rate",
-      "go to preprocessing phase",
-      "apply spectral filter",
-      "apply filter A",
-      "apply filter B",
-      "apply downsampling",
-      "apply epoching",
-      "go to next"
+        "go to meeting",
+        "explore markers",
+        "inspect sampling rate",
+        "go to preprocessing phase",
+        "plot PSD",
+        "apply spectral filter",
+        "choose band A",
+        "plot PSD",
+        "apply downsampling",
+        "apply epoching",
+        "apply spectral filter",
+        "choose band A",
+        //"go to spatial filtering phase"
+    ],
+    
+    b:[
+        "go to meeting",
+        "explore markers",
+        "inspect sampling rate",
+        "go to preprocessing phase",
+        "plot PSD",
+        "apply spectral filter",
+        "choose band B",
+        "plot PSD",
+        "apply downsampling",
+        "apply epoching",
+        "go to spatial filtering phase",
+        "apply ICA",
+        "apply SPoC",
+        "apply CSP",
+        "select component set B",
+        "compute average amplitude"
     ]
+
   }
   
