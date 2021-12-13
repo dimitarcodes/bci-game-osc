@@ -38,7 +38,7 @@ phase_a.a0.dests = ['A1']
 
 phase_a.a1 = []
 phase_a.a1.alias = "The First Thesis Meeting"
-phase_a.a1.desc = "Your silly thesis supervisor has bought some EEG data from some sketchy website. He just clicked 'Download' on the zip file and then cleared his browser history. Now you have no idea what experiment the data came from and what it's specs are. Your supervisor is persistent in that you should be able to get a good model from this data. 'I had a PhD student that worked on that data! When he had a breakthrough, he called me that he was on his way to show me, but then mysterously vanished... So now it's up to you to do put your BCI skills to some good use, go get me some results!' <br> <br> You: 'Where exactly did you get the data from?' <br> Sup: 'Uuuuuhm.... the internet?'  <br> You: 'Do you remember what the experiment was?' <br> Sup: 'Nope, but inspecting the data and looking at the markers should be a good starting point, off you go!'"
+phase_a.a1.desc = "Your silly thesis supervisor has bought some EEG data from some sketchy website. He just clicked 'Download' on the zip file and then cleared his browser history. Now you have no idea what experiment the data came from and what its specs are. Your supervisor is persistent in that you should be able to get a good model from this data. 'I had a PhD student that worked on that data! When he had a breakthrough, he called me that he was on his way to show me, but then mysterously vanished... So now it's up to you to do put your BCI skills to some good use, go get me some results!' <br> You: 'Where exactly did you get the data from?' <br> Sup: 'Uuuuuhm.... the internet?'  <br> You: 'Do you remember what the experiment was?' <br> Sup: 'Nope, but inspecting the data and looking at the markers should be a good starting point, off you go!'"
 phase_a.a1.hint = "Hmm.. the supervisor told me to inspect the data and especially the markers, I guess I should do that"
 phase_a.a1.dests = ['A2','A3','A4','A5']
 phase_a.a1.regex = /^(.*)(meeting|thesis)(.*)$/
@@ -143,21 +143,21 @@ phase_b.b5B.regex = /^(.*)(filter b)(.*)$/
 
 phase_b.b6 = []
 phase_b.b6.alias = "Epoching"
-phase_b.b6.desc = "You cut the data into epochs of [-1, 7]s, such that each epoch contains the EEG-signals of one of the two classes. Remember the markers, what were the classes?"
+phase_b.b6.desc = "You cut the data into epochs of [-1, 7]s, such that each epoch contains the EEG-signals of one of the two classes. Remember the markers, these contain the classes we are interested in."
 phase_b.b6.hint = "This could be the last step of the preprocessing phase. You could try to 'go to choosing spatial filter' or 'apply PCA/ICA/CSP/SPoC' directly. If you're not allowed to do so, you probably missed a step."
 phase_b.b6.dests = ['B1','B2','B3','B4','B5']
 phase_b.b6.regex = /^(.*)(epoch)(.*)$/
 
 phase_b.b7 = []
 phase_b.b7.alias = 'PCA'
-phase_b.b7.desc = 'You apply Principle Component Analysis'
+phase_b.b7.desc = 'You apply Principle Component Analysis and receive 22 components.'
 phase_b.b7.hint = 'gj'
 phase_b.b7.dests = ['B1','B2','B3','B4','B6','B8']
 phase_b.b7.regex = /^(.*)(pca|principle component)(.*)$/
 
 phase_b.b8 = []
 phase_b.b8.alias = 'ICA'
-phase_b.b8.desc = 'You apply Independent Component Analysis'
+phase_b.b8.desc = 'You apply Independent Component Analysis and receive 22 components.'
 phase_b.b8.hint = 'gj'
 phase_b.b8.dests = ['B1','B2','B3','B4','B6','B7']
 phase_b.b8.regex = /^(.*)(ica|independent component)(.*)$/
