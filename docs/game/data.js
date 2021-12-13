@@ -49,7 +49,7 @@ phase_a.a2.desc = "You plot the raw data and the raw data's frequency spectrum (
 phase_a.a2.hint = "Remember, this 50Hz peak isn't due to brain activity."
 phase_a.a2.images = ['A2_1.png', 'A2_2.png']
 phase_a.a2.dests = ['A3','A4','A5']
-phase_a.a2.regex = /^(.*)(data|frequency spectrum|spectrum|spectrogram|PSD)(.*)$/
+phase_a.a2.regex = /^(.*)(data|frequency spectrum|spectrum|spectrogram|psd)(.*)$/
 
 phase_a.a3 = []
 phase_a.a3.alias = "Exploring the markers"
@@ -103,7 +103,7 @@ phase_b.b2.desc = "You plot the PSD (power spectral density) function of the dat
 phase_b.b2.hint = "What can we do to counteract this peak at 50 Hz?"
 phase_b.b2.images = ['B2.png']
 phase_b.b2.dests = ['B1','B3','B4','B5','B6','B7','B8']
-phase_b.b2.regex = /^(.*)(data|frequency spectrum|spectrum|spectrogram|PSD)(.*)$/
+phase_b.b2.regex = /^(.*)(frequency spectrum|spectrum|spectrogram|psd)(.*)$/
 
 phase_b.b3 = []
 phase_b.b3.alias = "Remove noisy channels"
@@ -153,14 +153,14 @@ phase_b.b7.alias = 'PCA'
 phase_b.b7.desc = 'You apply Principle Component Analysis'
 phase_b.b7.hint = 'gj'
 phase_b.b7.dests = ['B1','B2','B3','B4','B6','B8']
-phase_b.b7.regex = /^(.*)(PCA|principle component)(.*)$/
+phase_b.b7.regex = /^(.*)(pca|principle component)(.*)$/
 
 phase_b.b8 = []
 phase_b.b8.alias = 'ICA'
 phase_b.b8.desc = 'You apply Independent Component Analysis'
 phase_b.b8.hint = 'gj'
 phase_b.b8.dests = ['B1','B2','B3','B4','B6','B7']
-phase_b.b8.regex = /^(.*)(ICA|independent component)(.*)$/
+phase_b.b8.regex = /^(.*)(ica|independent component)(.*)$/
 
 // SPATIAL FILTERING PHASE DATA
 
@@ -291,7 +291,7 @@ createRoom('B1', {
       simpleUse:function(char){
       if (phase_b.gate % phase_b.condition === 0){
         return util.defaultSimpleExitUse(char, this)
-        }else return falsemsg(phase_a.unavailable)
+        }else return falsemsg(phase_b.unavailable)
       } 
     })
   ),
@@ -311,7 +311,7 @@ createRoom('B2', {
       simpleUse:function(char){
       if (phase_b.gate % phase_b.condition === 0){
         return util.defaultSimpleExitUse(char, this)
-        }else return falsemsg(phase_a.unavailable)
+        }else return falsemsg(phase_b.unavailable)
       } 
     })
   ),
@@ -327,7 +327,7 @@ createRoom('B3', {
       simpleUse:function(char){
       if (phase_b.gate % phase_b.condition === 0){
         return util.defaultSimpleExitUse(char, this)
-        }else return falsemsg(phase_a.unavailable)
+        }else return falsemsg(phase_b.unavailable)
       } 
     })
   ),
@@ -344,7 +344,7 @@ createRoom('B4', {
       simpleUse:function(char){
       if (phase_b.gate % phase_b.condition === 0){
         return util.defaultSimpleExitUse(char, this)
-        }else return falsemsg(phase_a.unavailable)
+        }else return falsemsg(phase_b.unavailable)
       } 
     })
   ),
@@ -392,7 +392,7 @@ createRoom('B5B', {
       simpleUse:function(char){
       if (phase_b.gate % phase_b.condition === 0){
         return util.defaultSimpleExitUse(char, this)
-        }else return falsemsg(phase_a.unavailable)
+        }else return falsemsg(phase_b.unavailable)
       } 
     })
   ),
@@ -409,7 +409,7 @@ createRoom('B6', {
       simpleUse:function(char){
       if (phase_b.gate % phase_b.condition === 0){
         return util.defaultSimpleExitUse(char, this)
-        }else return falsemsg(phase_a.unavailable)
+        }else return falsemsg(phase_b.unavailable)
       } 
     })
   ),
@@ -425,7 +425,7 @@ createRoom('B7', {
       simpleUse:function(char){
       if (phase_b.gate % phase_b.condition === 0){
         return util.defaultSimpleExitUse(char, this)
-        }else return falsemsg(phase_a.unavailable)
+        }else return falsemsg(phase_b.unavailable)
       } 
     })
   ),
@@ -441,7 +441,7 @@ createRoom('B8', {
       simpleUse:function(char){
       if (phase_b.gate % phase_b.condition === 0){
         return util.defaultSimpleExitUse(char, this)
-        }else return falsemsg(phase_a.unavailable)
+        }else return falsemsg(phase_b.unavailable)
       } 
     })
   ),
