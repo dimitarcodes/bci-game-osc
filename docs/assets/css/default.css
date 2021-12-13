@@ -439,9 +439,9 @@ table.meta {
 }
 
 .parser {
-  font-weight: bold;
+  /* font-weight: bold;
   font-size: 10pt;
-  color: grey;
+  color: grey; */
 }
 
 .error {
