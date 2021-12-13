@@ -2,7 +2,7 @@
 
 settings.title = "The Mad Thesis Supervisor"
 settings.author = "Da TAs"
-settings.version = "4.20"
+settings.version = "0.3"
 settings.thanks = ["Michael Tangermann and Jordy Thielen for getting us the extra $$$"]
 settings.warnings = "No warnings have been set for this game."
 settings.playMode = "dev"
@@ -32,3 +32,19 @@ settings.roomCreateFunc = function(o) {
         }
     }
 }
+
+const walkthroughs = {
+    a:[
+      "go to meeting",
+      "explore markers",
+      "explore sampling rate",
+      "go to preprocessing phase",
+      "apply spectral filter",
+      "apply filter A",
+      "apply filter B",
+      "apply downsampling",
+      "apply epoching",
+      "go to next"
+    ]
+  }
+  
