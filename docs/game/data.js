@@ -318,7 +318,7 @@ phase_g.g0 = []
 phase_g.g0.alias = "Running the pipeline..."
 phase_g.g0.msg1 = "Performing awesome analysis..."
 phase_g.g0.msg2 = "Any second now..."
-phase_g.g0.msg3 = "aaaand we're done :) you can now inspect your results"
+phase_g.g0.msg3 = "aaaand we're done :) you can now type 'inspect results' to see how well your pipeline did"
 phase_g.g0.desc = ""
 phase_g.g0.hint = "Go ahead - type 'inspect results' to see how well you did :)"
 phase_g.g0.dests=['G1']
@@ -952,7 +952,6 @@ createRoom('G0', {
     msg(phase_g.g0.msg1)
     picture("loading" + getRandomInt(11) + '.gif', 600)
     msg(phase_g.g0.msg2)
-    //picture("loading" + getRandomInt(11) + '.gif', 600)
     msg(phase_g.g0.msg3)
   },
   dests:phase_g.g0.dests.map(x => new Exit(x))
