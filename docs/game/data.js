@@ -21,6 +21,10 @@ function mandatory(phase, prime){
   }
 }
 
+function getRandomInt(max) {
+  return 1 + Math.floor(Math.random() * max);
+}
+
 // EXPLORATORY PHASE DATA
 
 var phase_a = []
@@ -208,21 +212,21 @@ phase_d.d1C.regex = /^(.*)(component set c)(.*)$/
 
 phase_d.d2 = []
 phase_d.d2.alias = "Compute average amplitdue"
-phase_d.d2.desc = "For each component, you compute the average amplitude. You now enter the 'model selection' phase"
+phase_d.d2.desc = "For each component, you compute the average amplitude. You have now entered the 'model selection' phase."
 phase_d.d2.hint = "Why the average? What can we do with these values?"
 phase_d.d2.dests = ['E0']
 phase_d.d2.regex = /^(.*)(average amplitude|average csp component|average component)(.*)$/
 
 phase_d.d3 = []
 phase_d.d3.alias = "Compute average log-band power"
-phase_d.d3.desc = "For each component, you compute the average log band power. You now enter the 'model selection' phase"
+phase_d.d3.desc = "For each component, you compute the average log band power. You have now entered the 'model selection' phase."
 phase_d.d3.hint = "Why the average? What can we do with these values?"
 phase_d.d3.dests = ['E0']
 phase_d.d3.regex = /^(.*)(band-power|bandpower|band power)(.*)$/
 
 phase_d.d4 = []
 phase_d.d4.alias = "Compute average Hilbert transform / envelope"
-phase_d.d4.desc = "For each component, you compute the average envelope. You now enter the 'model selection' phase"
+phase_d.d4.desc = "For each component, you compute the average envelope. You have now entered the 'model selection' phase."
 phase_d.d4.hint = "Why the average? What can we do with these values?"
 phase_d.d4.dests = ['E0']
 phase_d.d4.regex = /^(.*)(hilbert|envelope)(.*)$/
@@ -238,34 +242,34 @@ phase_e.e0 = []
 phase_e.e0.alias = "Model selection"
 phase_e.e0.desc = "Now it's time to choose what type of model you'll be using to make predictions."
 phase_e.e0.hint = "You have extracted features from last phase and already have labels (epoch markers), what model is suited for training on this data?",
-phase_e.e0.dests = ['E1', 'E1B','E2','E3']
+phase_e.e0.dests = ['E1A', 'E1B','E3']
 
-phase_e.e1 = []
-phase_e.e1.alias = "LDA"
-phase_e.e1.desc = "You decided to use LDA for classification."
-phase_e.e1.hint = "You haven't yet trained your model, how do you evaluate your decision?",
-phase_e.e1.dests = ['E1','E2','E3']
-phase_e.e1.regex = /^(lda|linear discriminant analysis)(.*)$/
+phase_e.e1A = []
+phase_e.e1A.alias = "LDA"
+phase_e.e1A.desc = "You decided to use LDA for classification. You have now entered the 'evaluation strategy selection' phase."
+phase_e.e1A.hint = "You haven't yet trained your model, how do you evaluate your decision?",
+phase_e.e1A.dests = ['E1B']
+phase_e.e1A.regex = /^(lda|linear discriminant analysis)(.*)$/
 
 phase_e.e1B = []
 phase_e.e1B.alias = "Shrinkage LDA"
-phase_e.e1B.desc = "You decided to use LDA with shrinkage for classification."
+phase_e.e1B.desc = "You decided to use LDA with shrinkage for classification. You have now entered the 'evaluation strategy selection' phase."
 phase_e.e1B.hint = "You haven't yet trained your model, how do you evaluate your decision?",
-phase_e.e1B.dests = ['E1','E2','E3']
+phase_e.e1B.dests = []
 phase_e.e1B.regex = /^(.*)(shrinkage lda|regularized lda)(.*)$/
 
 phase_e.e2 = []
 phase_e.e2.alias = "Linear regression"
-phase_e.e2.desc = "You decided you want to use linear regression. Are you sure about that? What were the markers? Is there a better model in this situation?"
+phase_e.e2.desc = "You wanted to use linear regression. Are you sure about that? What were the markers? Is there a better model for this situation?"
 phase_e.e2.hint = "Is this a classification or regression problem?",
 phase_e.e2.dests = [] //sinkstate
 phase_e.e2.regex = /^(.*)(Linear regression|least squares)(.*)$/
 
 phase_e.e3 = []
 phase_e.e3.alias = "Logistic regression"
-phase_e.e3.desc = "You decided to use logistic regression for classification."
+phase_e.e3.desc = "You decided to use logistic regression for classification. You have now entered the 'evaluation strategy selection' phase."
 phase_e.e3.hint = "You haven't yet trained your model, how do you evaluate your decision?",
-phase_e.e3.dests = ['E1','E2','E3']
+phase_e.e3.dests = []
 phase_e.e3.regex = /^(.*)(logistic regression)(.*)$/
 
 var phase_f = []
@@ -275,12 +279,45 @@ phase_f.unavailable = "You're still missing a step."
 phase_f.available = "You've already done the most important steps of this phase. You can probably move on to the evaluation phase - type 'select validation strategy'"
 phase_f.hint = ""
 
-phase_e.e1 = []
-phase_e.e1.alias = "AUC ROC"
-phase_e.e1.desc = "You decided to use LDA for classification."
-phase_e.e1.hint = "You haven't yet trained your model, how do you evaluate your decision?",
-phase_e.e1.dests = [] 
-phase_e.e1.regex = /^(.*)(AUC|ROC)(.*)$/
+phase_f.f0 = []
+phase_f.f0.alias = "Evaluation strategy selection"
+phase_f.f0.desc = "Now it's time to determine hwo you will be evaluating your model."
+phase_f.f0.hint = "What validation methods have been discussed? Is there a way to get a performance metric?",
+phase_f.f0.dests = ['F1', 'F2', 'F3'] 
+phase_f.f0.regex = /^(.*)(evaluation|validation)(.*)$/
+
+phase_f.f1 = []
+phase_f.f1.alias = "AUC ROC"
+phase_f.f1.desc = "You decide to evaluate your model using ROC-AUC."
+phase_f.f1.dests = [] 
+phase_f.f1.regex = /^(.*)(AUC|ROC)(.*)$/
+
+phase_f.f2 = []
+phase_f.f2.alias = "Classification accuracy"
+phase_f.f2.desc = "You decide to evaluate your model using classification accuracy."
+phase_f.f2.dests = []
+phase_f.f2.regex = /^(.*)(classification|accuracy)(.*)$/
+
+phase_f.f3 = []
+phase_f.f3.alias = "Cross-validation"
+phase_f.f3.desc = "You decide to evaluate your model using cross-validation."
+phase_f.f3.dests = [] 
+phase_f.f3.regex = /^(.*)(cross-validation|cross validation)(.*)$/
+
+
+var phase_g = []
+phase_g.g0 = []
+phase_g.g0.alias = "Running the pipeline..."
+phase_g.g0.msg1 = "Performing awesome analysis..."
+phase_g.g0.msg2 = "Any second now..."
+phase_g.g0.desc = ""
+phase_g.g0.hint = "Go ahead - type 'inspect results' to see how well you did :)"
+phase_g.g0.dests=['G1']
+
+phase_g.g1 = []
+phase_g.g1.alias = "Results"
+phase_g.g1.desc = ""
+phase_g.g1.regex = ""
 
 var data_state = 0;
 var phase_counter = 0;
@@ -794,6 +831,307 @@ createRoom('E0', {
   headingAlias: phase_e.e0.alias,
   desc: phase_e.e0.desc,
   afterEnter: function(){setHint(phase_e.e0.hint, phase_e)},
+  dests:phase_e.e0.dests.map(x => new Exit(x)).concat(
+    new Exit('E2',{
+    simpleUse:function(char){
+      if (false){
+          return util.defaultSimpleExitUse(char, this)
+        }else return falsemsg(phase_e.e2.desc)
+      } 
+  })),
+})
+
+createRoom('E1A', {
+  headingAlias: phase_e.e1A.alias,
+  desc: phase_e.e1A.desc,
+  regex: phase_e.e1A.regex,
+  afterEnter: function(){
+    mandatory(phase_e,2)
+    util.defaultSimpleExitUse(game.player, new Exit('F0'))},
+  dests:phase_e.e1A.dests.map(x => new Exit(x))
+})
+
+createRoom('E1B', {
+  headingAlias: phase_e.e1B.alias,
+  desc: phase_e.e1B.desc,
+  regex: phase_e.e1B.regex,
+  afterEnter: function(){
+    mandatory(pahse_e,3)
+    util.defaultSimpleExitUse(game.player, new Exit('F0'))},
+  dests:phase_e.e1B.dests.map(x => new Exit(x))
+})
+
+
+createRoom('E2', {
+  headingAlias: phase_e.e2.alias,
+  regex: phase_e.e2.regex,
+  desc: phase_e.e2.desc,
+  afterEnter: function(){setHint(phase_e.e2.hint, phase_e)},
   dests:[]
 })
 
+
+createRoom('E3', {
+  headingAlias: phase_e.e3.alias,
+  desc: phase_e.e3.desc,
+  regex: phase_e.e3.regex,
+  afterEnter: function(){
+    mandatory(phase_e, 5)
+    util.defaultSimpleExitUse(game.player, new Exit('F0'))
+  },
+  dests:phase_e.e3.dests.map(x => new Exit(x))
+})
+
+createRoom('F0', {
+  headingAlias: phase_f.f0.alias,
+  desc: phase_f.f0.desc,
+  afterEnter: function(){setHint(phase_f.f0.hint, phase_f)},
+  dests:phase_f.f0.dests.map(x => new Exit(x))
+})
+
+createRoom('F1', {
+  headingAlias: phase_f.f1.alias,
+  desc: phase_f.f1.desc,
+  regex: phase_f.f1.regex,
+  afterEnter: function(){
+    mandatory(pahse_f,2)
+    util.defaultSimpleExitUse(game.player, new Exit('G0'))},
+  dests:phase_f.f1.dests.map(x => new Exit(x))
+})
+
+
+createRoom('F2', {
+  headingAlias: phase_f.f2.alias,
+  desc: phase_f.f2.desc,
+  regex: phase_f.f2.regex,
+  afterEnter: function(){
+    mandatory(pahse_f,3)
+    util.defaultSimpleExitUse(game.player, new Exit('G0'))},
+  dests:phase_f.f2.dests.map(x => new Exit(x))
+})
+
+
+createRoom('F3', {
+  headingAlias: phase_f.f3.alias,
+  desc: phase_f.f3.desc,
+  regex: phase_f.f3.regex,
+  afterEnter: function(){
+    mandatory(pahse_e,5)
+    util.defaultSimpleExitUse(game.player, new Exit('G0'))},
+  dests:phase_f.f3.dests.map(x => new Exit(x))
+})
+
+
+createRoom('G0', {
+  headingAlias: phase_g.g0.alias,
+  desc: phase_g.g0.desc,
+  afterEnter: function(){
+    setHint(phase_g.g0.hint, phase_g)
+    picture("loading" + getRandomInt(11) + '.gif', 600)
+  },
+  dests:phase_g.g0.dests.map(x => new Exit(x))
+})
+
+createRoom('G1', {
+  headingAlias: phase_g.g1.alias,
+  desc: phase_g.g0.desc,
+  afterEnter: function(){
+    setHint(phase_g.g0.hint, phase_g)
+    // F1 = AUC [2], F2 = Accuracy [3], F3 = Cross-validation [5]
+    // E1A = LDA [2], E1B = Shrinkage LDA [3], E3 = Logistic regression [5]
+    // D correct filter = [3], D incorrect filters = [2 OR 5], D2 = average amplitude [7], D3 = average log band-power [11], D4 = average Hilbert [13]
+    // B no spectral filter = [neither 3 nor 5], B incorrect spectral filter = [3], B correct spectral filter = [5]
+    
+    //check for freq filter
+    if (phase_b.gate % 5 == 0){
+      // check for correct spatial filters
+      if (phase_d.gate % 3 == 0){
+        //feature 
+        if (phase_d.gate % 7 == 0){ // AVG COMPONENT
+          // classification
+          if (phase_e.gate % 2 == 0){ // LDA
+            // validation
+            if (phase_f.gate % 2 == 0){ // AUC
+              picture('F1_E1A_D2.png')
+            }else if (phase_f.gate % 3 == 0){ //Accuracy
+              msg("You get accuracy of 57.14285714285714\%! That's pretty low :/")
+            }else if (phase_f.gate % 5 == 0){ //Cross-validation
+              msg("You get average cross-validation score of 50.02463054187192\%! Yikes D:")
+            }
+          } else if (phase_e.gate%3 == 0){ // Shrinkage LDA
+              if (phase_f.gate % 2 == 0){ // AUC
+                picture('F1_E1B_D2.png')
+              }else if (phase_f.gate % 3 == 0){ //Accuracy
+                msg("You get accuracy of 57.14285714285714\%! That's pretty low :/")
+              }else if (phase_f.gate % 5 == 0){ //Cross-validation
+                msg("You get average cross-validation score of 50.71428571428571\%! Yikes D:")
+              }
+            } else if (phase_e.gate%5 == 0){ // Logistic regression
+              if (phase_f.gate % 2 == 0){ // AUC
+                picture('F1_E3_D2.png')
+              }else if (phase_f.gate % 3 == 0){ //Accuracy
+                msg("You get accuracy of 50\%! Yikes D:")
+              }else if (phase_f.gate % 5 == 0){ //Cross-validation
+                msg("You get average cross-validation score of 50.04926108374385\%! Yikes D:")
+              }
+            }
+          } else if (phase_d.gate % 11 == 0){ // AVG LOG BAND
+            if (phase_e.gate % 2 == 0){ // LDA
+              // validation
+              if (phase_f.gate % 2 == 0){ // AUC
+                picture('F1_E1A_D3.png')
+              }else if (phase_f.gate % 3 == 0){ // Accuracy
+                msg("You get accuracy of 78.57142857142857\%!")
+              }else if (phase_f.gate % 5 == 0){ //Cross-validation
+                msg("You get average cross-validation score of 85.36945812807882\%!")
+              }
+            } else if (phase_e.gate%3 == 0){ // Shrinkage LDA
+                if (phase_f.gate % 2 == 0){ // AUC
+                  picture('F1_E1B_D3.png')
+                }else if (phase_f.gate % 3 == 0){ //Accuracy
+                  msg("You get accuracy of 78.57142857142857\%!")
+                }else if (phase_f.gate % 5 == 0){//Cross-validation
+                  msg("You get average cross-validation score of 87.4384236453202\%!")
+                }
+              } else if (phase_e.gate%5 == 0){ // Logistic Regression
+                if (phase_f.gate % 2 == 0){ // AUC
+                  picture('F1_E3_D3.png')
+                }else if (phase_f.gate % 3 == 0){ //Accuracy
+                  msg("You get accuracy of 78.57142857142857\%!")
+                }else if (phase_f.gate % 5 == 0){//Cross-validation
+                  msg("You get average cross-validation score of 87.41379310344828\%!")
+                }
+              }
+          } else if (phase_d.gate % 13 == 0){ // AVG HILBERT
+            if (phase_e.gate % 2 == 0){ // LDA
+              // validation
+              if (phase_f.gate % 2 == 0){ // AUC
+                picture('F1_E1A_D4.png')
+              }else if (phase_f.gate % 3 == 0){ //Accuracy
+                msg("You get accuracy of 71.42857142857143\%!")
+              }else if (phase_f.gate % 5 == 0){ //Cross-validation
+                msg("You get average cross-validation score of 81.92118226600984\%!")
+              }
+            } else if (phase_e.gate%3 == 0){ // Shrinkage LDA
+                if (phase_f.gate % 2 == 0){ // AUC
+                  picture('F1_E1B_D4.png')
+                }else if (phase_f.gate % 3 == 0){ //Accuracy
+                  msg("You get accuracy of 71.42857142857143\%!")
+                }else if (phase_f.gate % 5 == 0){ //Cross-validation
+                  msg("You get average cross-validation score of 79.08866995073891\%!")
+                }
+              } else if (phase_e.gate%5 == 0){ // Logistic regression
+                if (phase_f.gate % 2 == 0){ // AUC
+                  picture('F1_E3_D4.png')
+                }else if (phase_f.gate % 3 == 0){ //Accuracy
+                  msg("You get accuracy of 71.42857142857143\%!")
+                }else if (phase_f.gate % 5 == 0){ //Cross-validation
+                  msg("You get average cross-validation score of 79.08866995073891\%!")
+                }
+              }
+          }
+          // _________________ SCORES ABOVE SHOULD BE FINE ___________________________________
+          
+      } else if (phase_d.gate % 2 == 0 || phase_d.gate % 5 == 0){
+        msg("Yikes, you took the wrong CSP components and got chance-level performance :( Should've picked components from both ends of the eigenvalue spectrum")
+      }
+    } else if (phase_b.gate % 3 == 0) {
+      msg("Yikes, you spectrally filtered the data to a band you don't care about. You obtained chance level performance, as the task at hand has information in the other band - check the markers again.")
+    } else if (!(phase_b.gate % 3 == 0 ||  phase_b.gate%5 == 0)){
+      // F1 = AUC [2], F2 = Accuracy [3], F3 = Cross-validation [5]
+    // E1A = LDA [2], E1B = Shrinkage LDA [3], E3 = Logistic regression [5]
+    // D correct spatial filter = [3], D incorrect filters = [2 OR 5], D2 = average amplitude [7], D3 = average log band-power [11], D4 = average Hilbert [13]
+    // B no spectral filter = [neither 3 nor 5], B incorrect spectral filter = [3], B correct spectral filter = [5]
+    
+      if (phase_d.gate % 3 == 0){
+        //feature 
+        if (phase_d.gate % 7 == 0){ // AVG COMPONENT
+          // classification
+          if (phase_e.gate % 2 == 0){ // LDA
+            // validation
+            if (phase_f.gate % 2 == 0){ // AUC
+              picture('nf_F1_E1A_D2.png')
+            }else if (phase_f.gate % 3 == 0){ //Accuracy
+              msg("You get accuracy of 50\%! That's pretty low :/")
+            }else if (phase_f.gate % 5 == 0){ //Cross-validation
+              msg("You get average cross-validation score of 53.49753694581281\%! Yikes D:")
+            }
+          } else if (phase_e.gate%3 == 0){ // Shrinkage LDA
+              if (phase_f.gate % 2 == 0){ // AUC
+                picture('nf_F1_E1B_D2.png')
+              }else if (phase_f.gate % 3 == 0){ //Accuracy
+                msg("You get accuracy of 50\%! That's pretty low :/")
+              }else if (phase_f.gate % 5 == 0){ //Cross-validation
+                msg("You get average cross-validation score of 0.49334975369458134\%! Yikes D:")
+              }
+            } else if (phase_e.gate%5 == 0){ // Logistic regression
+              if (phase_f.gate % 2 == 0){ // AUC
+                picture('nf_F1_E3_D2.png')
+              }else if (phase_f.gate % 3 == 0){ //Accuracy
+                msg("You get accuracy of 46.42857142857143\%! Yikes D:")
+              }else if (phase_f.gate % 5 == 0){ //Cross-validation
+                msg("You get average cross-validation score of 50.04926108374385\%! Yikes D:")
+              }
+            }
+          } else if (phase_d.gate % 11 == 0){ // AVG LOG BAND
+            if (phase_e.gate % 2 == 0){ // LDA
+              // validation
+              if (phase_f.gate % 2 == 0){ // AUC
+                picture('nf_F1_E1A_D3.png')
+              }else if (phase_f.gate % 3 == 0){ // Accuracy
+                msg("You get accuracy of 75\%!")
+              }else if (phase_f.gate % 5 == 0){ //Cross-validation
+                msg("You get average cross-validation score of 62.63546798029557\%!")
+              }
+            } else if (phase_e.gate%3 == 0){ // Shrinkage LDA
+                if (phase_f.gate % 2 == 0){ // AUC
+                  picture('nf_F1_E1B_D3.png')
+                }else if (phase_f.gate % 3 == 0){ //Accuracy
+                  msg("You get accuracy of 60.71428571428571\%! :/")
+                }else if (phase_f.gate % 5 == 0){//Cross-validation
+                  msg("You get average cross-validation score of 62.61083743842365\%!")
+                }
+              } else if (phase_e.gate%5 == 0){ // Logistic Regression
+                if (phase_f.gate % 2 == 0){ // AUC
+                  picture('nf_F1_E3A_D3.png')
+                }else if (phase_f.gate % 3 == 0){ //Accuracy
+                  msg("You get accuracy of 71.42857142857143\%!")
+                }else if (phase_f.gate % 5 == 0){//Cross-validation
+                  msg("You get average cross-validation score of 62.61083743842364\%!")
+                }
+              }
+          } else if (phase_d.gate % 13 == 0){ // AVG HILBERT
+            if (phase_e.gate % 2 == 0){ // LDA
+              // validation
+              if (phase_f.gate % 2 == 0){ // AUC
+                picture('nf_F1_E1A_D4.png')
+              }else if (phase_f.gate % 3 == 0){ //Accuracy
+                msg("You get accuracy of 75\%!")
+              }else if (phase_f.gate % 5 == 0){ //Cross-validation
+                msg("You get average cross-validation score of 64.67980295566502\%!")
+              }
+            } else if (phase_e.gate%3 == 0){ // Shrinkage LDA
+                if (phase_f.gate % 2 == 0){ // AUC
+                  picture('nf_F1_E1B_D4.png')
+                }else if (phase_f.gate % 3 == 0){ //Accuracy
+                  msg("You get accuracy of 75\%!")
+                }else if (phase_f.gate % 5 == 0){ //Cross-validation
+                  msg("You get average cross-validation score of 64.67980295566502\%!")
+                }
+              } else if (phase_e.gate%5 == 0){ // Logistic regression
+                if (phase_f.gate % 2 == 0){ // AUC
+                  picture('nf_F1_E3_D4.png')
+                }else if (phase_f.gate % 3 == 0){ //Accuracy
+                  msg("You get accuracy of 75\%!")
+                }else if (phase_f.gate % 5 == 0){ //Cross-validation
+                  msg("You get average cross-validation score of 62.58620689655172\%!")
+                }
+              }
+          }
+      }else if (phase_d.gate % 2 == 0 || phase_d.gate % 5 == 0){
+        msg("Yikes, you took the wrong CSP components and got chance-level performance :( Should've picked components from both ends of the eigenvalue spectrum")
+      }
+    }
+  },
+  dests:[]
+})
