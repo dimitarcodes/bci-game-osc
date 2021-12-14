@@ -82,7 +82,7 @@ phase_b.b0 = []
 phase_b.b0.alias = "Start Preprocessing"
 phase_b.b0.desc = "You have done some exploration, now it's time to start preprocessing the data. Think about all the steps you've learned throughout the course."
 phase_b.b0.hint = "There are many tricks discussed in the lectures and in the assignment notebooks. Think about how we altered the data as a whole, what is the correct order of these operations?"
-phase_b.b0.dests = ['B1','M0','B3','B4','B5','B6','C1','C2']
+phase_b.b0.dests = ['B1','M0','B3','B4','B5','B6']
 phase_b.b0.regex = /^(.*)(preprocessing|pre-processing)(.*)$/
 
 phase_b.b1 = []
@@ -134,7 +134,7 @@ phase_b.b5B.regex = /^(.*)(band b)(.*)$/
 phase_b.b6 = []
 phase_b.b6.alias = "Epoching"
 phase_b.b6.desc = "You cut the data into epochs of [-1, 7]s, such that each epoch contains the EEG-signals of one of the two classes. Remember the markers, these contain the classes we are interested in."
-phase_b.b6.hint = "This could be the last step of the preprocessing phase. You could try to 'go to choosing spatial filter' or 'apply PCA/ICA/CSP/SPoC' directly. If you're not allowed to do so, you probably missed a step."
+phase_b.b6.hint = "This could be the last step of the preprocessing phase. You could try to 'go to choosing spatial filter'. If you're not allowed to do so, you probably missed a step."
 phase_b.b6.dests = ['B1','M0','B3','B4','B5']
 phase_b.b6.regex = /^(.*)(epoch)(.*)$/
 
@@ -263,7 +263,7 @@ phase_e.e2.alias = "Linear regression"
 phase_e.e2.desc = "You wanted to use linear regression. Are you sure about that? What were the markers? Is there a better model for this situation?"
 phase_e.e2.hint = "Is this a classification or regression problem?",
 phase_e.e2.dests = [] //sinkstate
-phase_e.e2.regex = /^(.*)(Linear regression|least squares)(.*)$/
+phase_e.e2.regex = /^(.*)(linear regression|least squares)(.*)$/
 
 phase_e.e3 = []
 phase_e.e3.alias = "Logistic regression"
@@ -281,7 +281,7 @@ phase_f.hint = ""
 
 phase_f.f0 = []
 phase_f.f0.alias = "Evaluation strategy selection"
-phase_f.f0.desc = "Now it's time to determine hwo you will be evaluating your model."
+phase_f.f0.desc = "Now it's time to determine how you will be evaluating your model."
 phase_f.f0.hint = "What validation methods have been discussed? Is there a way to get a performance metric?",
 phase_f.f0.dests = ['F1', 'F2', 'F3'] 
 phase_f.f0.regex = /^(.*)(evaluation|validation)(.*)$/
@@ -290,7 +290,7 @@ phase_f.f1 = []
 phase_f.f1.alias = "AUC ROC"
 phase_f.f1.desc = "You decide to evaluate your model using ROC-AUC."
 phase_f.f1.dests = [] 
-phase_f.f1.regex = /^(.*)(AUC|ROC)(.*)$/
+phase_f.f1.regex = /^(.*)(auc)(.*)$/
 
 phase_f.f2 = []
 phase_f.f2.alias = "Classification accuracy"
@@ -310,6 +310,7 @@ phase_g.g0 = []
 phase_g.g0.alias = "Running the pipeline..."
 phase_g.g0.msg1 = "Performing awesome analysis..."
 phase_g.g0.msg2 = "Any second now..."
+phase_g.g0.msg3 = "aaaand we're done :) you can now inspect your results"
 phase_g.g0.desc = ""
 phase_g.g0.hint = "Go ahead - type 'inspect results' to see how well you did :)"
 phase_g.g0.dests=['G1']
@@ -317,7 +318,7 @@ phase_g.g0.dests=['G1']
 phase_g.g1 = []
 phase_g.g1.alias = "Results"
 phase_g.g1.desc = ""
-phase_g.g1.regex = ""
+phase_g.g1.regex = /^(.*)(results)(.*)$/
 
 var data_state = 0;
 var phase_counter = 0;
@@ -491,7 +492,7 @@ createRoom("B0", {
   afterFirstEnter: function(){phase_counter = 1},
   headingAlias: phase_b.b0.alias,
   desc: phase_b.b0.desc,
-  regex:phase_b.b0.regex,
+  regex: phase_b.b0.regex,
   dests: phase_b.b0.dests.map(x => new Exit(x))
 })
 
@@ -856,7 +857,7 @@ createRoom('E1B', {
   desc: phase_e.e1B.desc,
   regex: phase_e.e1B.regex,
   afterEnter: function(){
-    mandatory(pahse_e,3)
+    mandatory(phase_e,3)
     util.defaultSimpleExitUse(game.player, new Exit('F0'))},
   dests:phase_e.e1B.dests.map(x => new Exit(x))
 })
@@ -894,7 +895,7 @@ createRoom('F1', {
   desc: phase_f.f1.desc,
   regex: phase_f.f1.regex,
   afterEnter: function(){
-    mandatory(pahse_f,2)
+    mandatory(phase_f,2)
     util.defaultSimpleExitUse(game.player, new Exit('G0'))},
   dests:phase_f.f1.dests.map(x => new Exit(x))
 })
@@ -905,7 +906,7 @@ createRoom('F2', {
   desc: phase_f.f2.desc,
   regex: phase_f.f2.regex,
   afterEnter: function(){
-    mandatory(pahse_f,3)
+    mandatory(phase_f,3)
     util.defaultSimpleExitUse(game.player, new Exit('G0'))},
   dests:phase_f.f2.dests.map(x => new Exit(x))
 })
@@ -916,7 +917,7 @@ createRoom('F3', {
   desc: phase_f.f3.desc,
   regex: phase_f.f3.regex,
   afterEnter: function(){
-    mandatory(pahse_e,5)
+    mandatory(phase_e,5)
     util.defaultSimpleExitUse(game.player, new Exit('G0'))},
   dests:phase_f.f3.dests.map(x => new Exit(x))
 })
@@ -927,14 +928,19 @@ createRoom('G0', {
   desc: phase_g.g0.desc,
   afterEnter: function(){
     setHint(phase_g.g0.hint, phase_g)
+    msg(phase_g.g0.msg1)
     picture("loading" + getRandomInt(11) + '.gif', 600)
+    msg(phase_g.g0.msg2)
+    picture("loading" + getRandomInt(11) + '.gif', 600)
+    msg(phase_g.g0.msg3)
   },
   dests:phase_g.g0.dests.map(x => new Exit(x))
 })
 
 createRoom('G1', {
   headingAlias: phase_g.g1.alias,
-  desc: phase_g.g0.desc,
+  desc: phase_g.g1.desc,
+  regex: phase_g.g1.regex,
   afterEnter: function(){
     setHint(phase_g.g0.hint, phase_g)
     // F1 = AUC [2], F2 = Accuracy [3], F3 = Cross-validation [5]
@@ -1070,7 +1076,7 @@ createRoom('G1', {
               }else if (phase_f.gate % 3 == 0){ //Accuracy
                 msg("You get accuracy of 46.42857142857143\%! Yikes D:")
               }else if (phase_f.gate % 5 == 0){ //Cross-validation
-                msg("You get average cross-validation score of 50.04926108374385\%! Yikes D:")
+                msg("You get average cross-validation score of 51.40394088669951\%! Yikes D:")
               }
             }
           } else if (phase_d.gate % 11 == 0){ // AVG LOG BAND
@@ -1087,7 +1093,7 @@ createRoom('G1', {
                 if (phase_f.gate % 2 == 0){ // AUC
                   picture('nf_F1_E1B_D3.png')
                 }else if (phase_f.gate % 3 == 0){ //Accuracy
-                  msg("You get accuracy of 60.71428571428571\%! :/")
+                  msg("You get accuracy of 60.71428571428571\%!")
                 }else if (phase_f.gate % 5 == 0){//Cross-validation
                   msg("You get average cross-validation score of 62.61083743842365\%!")
                 }
