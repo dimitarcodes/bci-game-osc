@@ -38,7 +38,7 @@ phase_a.hint = ""
 
 phase_a.a0 = []
 phase_a.a0.alias = "Introduction"
-phase_a.a0.desc = "Hi! Welcome to this interactive BCI experience! In this little game you will go through a short story and analysis pipeline. No fear, no 'spooky' code this time. The game is structured as follows: you move between states by performing certain actions, these actions can be performed by typing out what has to be done (e.g., 'plot frequency spectrum' / 'inspect marker file' / 'apply PCA' etc.). It is important that you always start your action with one of the following words: perform/plot/apply. If at any point you are lost or unsure how things work, you can always type 'help'. <br> <br> Are you ready? Type: 'go to first thesis meeting'"
+phase_a.a0.desc = "Hi! Welcome to this interactive BCI experience! In this little game you will go through a short story and analysis pipeline. No fear, no 'spooky' code this time. The game is structured as follows: you move between states by performing certain actions, these actions can be performed by typing out what has to be done (e.g., 'plot frequency spectrum' / 'inspect marker file' / 'apply PCA' etc.). <br> It is important that you always start your action with one of the following words: perform/plot/apply/inspect/explore/use/remove/pick/choose/select/compute/ask about/go to. If at any point you are lost or unsure how things work, you can always type 'help'. <br> <br> Are you ready? Type: 'go to first thesis meeting'"
 phase_a.a0.hint = "Go ahead - type 'go to the first meeting'"
 phase_a.a0.dests = ['A1']
 
@@ -48,7 +48,6 @@ phase_a.a1.desc = "Your silly thesis supervisor has bought some EEG data from so
 phase_a.a1.hint = "Hmm.. the supervisor told me to inspect the data and especially the markers, I guess I should do that."
 phase_a.a1.dests = ['M0','A3','A4','A5']
 phase_a.a1.regex = /^(.*)(meeting|thesis)(.*)$/
-
 
 phase_a.a3 = []
 phase_a.a3.alias = "Exploring the markers"
@@ -101,7 +100,7 @@ phase_b.b3.alias = "Remove noisy channels"
 phase_b.b3.desc = "You tried removing noisy channels by using a min-max threshold criterion. No channels were removed from the data. There are already only 22 channels in the data, perhaps the noisy channels were already removed before publication."
 phase_b.b3.hint = "There are other steps in the preprocessing phase that are also required. Can we limit the number of samples for example? Do we have to split up the signals in some way?"
 phase_b.b3.dests = ['B1','M0','B4','B5','B6']
-phase_b.b3.regex = /^(.*)(nois)(.*)$/
+phase_b.b3.regex = /^(.*)(nois|outlier)(.*)$/
 
 phase_b.b4 = []
 phase_b.b4.alias = "Downsampling"
@@ -116,7 +115,7 @@ phase_b.b5.desc = "You want to spectral filter the data, smart! What frequency b
 phase_b.b5.desc_epoched = "You want to spectral filter the data, smart! Usually this would be a bad idea after epoching, but thankfully you took epochs with enough time for the filters to warm up. What frequency band do you think is best in this scenario?: <br> <br> A: [1 - 10] Hz <br> B: [7-20] Hz <br> <br> type: 'choose band A' or 'choose band B' to continue "
 phase_b.b5.hint = "Do you know what the paradigm is? What were the markers? What frequency band should at least be in the range of our filter?"
 phase_b.b5.dests = ['B5A', 'B5B'] // manually
-phase_b.b5.regex = /^(.*)(spectral(.*)filter|bandpass filter|frequency filter)(.*)$/
+phase_b.b5.regex = /^(.*)(spectr(.*)filter|bandpass filter|frequency filter)(.*)$/
 
 phase_b.b5A = []
 phase_b.b5A.alias = "Filter band A"
@@ -260,7 +259,7 @@ phase_e.e1B.alias = "Shrinkage LDA"
 phase_e.e1B.desc = "You decided to use LDA with shrinkage for classification. You have now entered the 'evaluation strategy selection' phase."
 phase_e.e1B.hint = "You haven't yet trained your model, how do you evaluate your decision?",
 phase_e.e1B.dests = []
-phase_e.e1B.regex = /^(.*)(shrinkage lda|regularized lda)(.*)$/
+phase_e.e1B.regex = /^(.*)(shrinkage|regularize|regularise)(.*)$/
 
 phase_e.e2 = []
 phase_e.e2.alias = "Linear regression"
@@ -294,13 +293,13 @@ phase_f.f1 = []
 phase_f.f1.alias = "AUC ROC"
 phase_f.f1.desc = "You decide to evaluate your model using ROC-AUC."
 phase_f.f1.dests = [] 
-phase_f.f1.regex = /^(.*)(auc)(.*)$/
+phase_f.f1.regex = /^(.*)(auc|area under the curve)(.*)$/
 
 phase_f.f2 = []
 phase_f.f2.alias = "Classification accuracy"
 phase_f.f2.desc = "You decide to evaluate your model using classification accuracy."
 phase_f.f2.dests = []
-phase_f.f2.regex = /^(.*)(classification|accuracy)(.*)$/
+phase_f.f2.regex = /^(.*)(accuracy)(.*)$/
 
 phase_f.f3 = []
 phase_f.f3.alias = "Cross-validation"

@@ -637,7 +637,7 @@ const lang = {
   helpScript:function() {
     if (settings.textInput) {
       metamsg("No fear! We're here to help. We hope that this clears everything up:");      
-      metamsg("{b:Playing the game:} To move between states perform actions by starting a command with {class:help-eg:PERFORM}/{class:help-eg:APPLY}/{class:help-eg:PLOT}/{class:help-eg:INSPECT}/{class:help-eg:USE}/{class:help-eg:ASK} (note that commands are not case sensitive).");
+      metamsg("{b:Playing the game:} To move between states perform actions by starting a command with {class:help-eg:PERFORM}/{class:help-eg:APPLY}/{class:help-eg:PLOT}/{class:help-eg:INSPECT}/{class:help-eg:USE}/{class:help-eg:REMOVE}/{class:help-eg:PICK}/{class:help-eg:SELECT}/{class:help-eg:COMPUTE}/{class:help-eg:ASK ABOUT}/{class:help-eg:GO TO} (note that commands are not case sensitive).");
       metamsg("{b:Oopsie woopsie:} The action you're trying to perform is either not something you should be doing right now or misspelled. The actions which you can perform differ per state of the game.");
       metamsg("{b:Hint/clue:} type {class:help-eg:HINT} / {class:help-eg:CLUE} to find out what possible actions there are in the current state.");
       metamsg("{b:Hackerman:} type {class:help-eg:DARK} to embrace your inner hackerman (this is a toggle, type dark again to go back).");
