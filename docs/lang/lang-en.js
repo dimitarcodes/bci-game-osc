@@ -39,7 +39,7 @@ const lang = {
     MetaLoadGame:/^(?:load|reload|restore) (.+)$/,
     MetaDir:/^(?:reload|load|restore|dir|directory|ls|save ls|save dir)$/,
     MetaDeleteGame:/^(?:delete|del) (.+)$/,
-    MetaUndo:/^undo$/,
+    MetaUndo:/^DEPRECATEDUNDRDO$/, //kill undo action
     MetaAgain:/^(?:again|g)$/,
     MetaOops:/^(?:oops)$/,
     MetaRestart:/^restart$/,

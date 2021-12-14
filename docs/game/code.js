@@ -10,7 +10,7 @@ commands.unshift(new Cmd('GoTo', {
   ],
   script:function(objects) {
     const room = objects[0][0]
-    if (room === currentLocation) return failedmsg("You already performed that action action just now.")
+    if (room === currentLocation) return failedmsg("You already performed that action just now.")
     if (!room.room) return failedmsg("{pv:item:be:true} not a destination.", {item:room})
     for (const ex of currentLocation.dests) {
       log(ex.name)
