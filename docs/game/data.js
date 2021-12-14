@@ -958,100 +958,87 @@ createRoom('G1', {
   regex: phase_g.g1.regex,
   afterEnter: function(){
     setHint(phase_g.g0.hint, phase_g)
-    // F1 = AUC [2], F2 = Accuracy [3], F3 = Cross-validation [5]
-    // E1A = LDA [2], E1B = Shrinkage LDA [3], E3 = Logistic regression [5]
-    // D correct filter = [3], D incorrect filters = [2 OR 5], D2 = average amplitude [7], D3 = average log band-power [11], D4 = average Hilbert [13]
-    // B no spectral filter = [neither 3 nor 5], B incorrect spectral filter = [3], B correct spectral filter = [5]
-    
-    //check for freq filter
     if (phase_b.gate % 5 == 0){
-      // check for correct spatial filters
       if (phase_d.gate % 3 == 0){
-        //feature 
-        if (phase_d.gate % 7 == 0){ // AVG COMPONENT
-          // classification
-          if (phase_e.gate % 2 == 0){ // LDA
-            // validation
-            if (phase_f.gate % 2 == 0){ // AUC
-              picture('F1_E1A_D2.png')
-            }else if (phase_f.gate % 3 == 0){ //Accuracy
+        if (phase_d.gate % 7 == 0){
+          if (phase_e.gate % 2 == 0){
+            if (phase_f.gate % 2 == 0){
+              picture('F1_E1A_D2.png', 600)
+            }else if (phase_f.gate % 3 == 0){
               msg("You get accuracy of 57.14285714285714\%! That's pretty low :/")
-            }else if (phase_f.gate % 5 == 0){ //Cross-validation
+            }else if (phase_f.gate % 5 == 0){
               msg("You get average cross-validation score of 50.02463054187192\%! Yikes D:")
             }
-          } else if (phase_e.gate%3 == 0){ // Shrinkage LDA
-              if (phase_f.gate % 2 == 0){ // AUC
-                picture('F1_E1B_D2.png')
-              }else if (phase_f.gate % 3 == 0){ //Accuracy
+          } else if (phase_e.gate%3 == 0){
+              if (phase_f.gate % 2 == 0){
+                picture('F1_E1B_D2.png', 600)
+              }else if (phase_f.gate % 3 == 0){ 
                 msg("You get accuracy of 57.14285714285714\%! That's pretty low :/")
-              }else if (phase_f.gate % 5 == 0){ //Cross-validation
+              }else if (phase_f.gate % 5 == 0){
                 msg("You get average cross-validation score of 50.71428571428571\%! Yikes D:")
               }
-            } else if (phase_e.gate%5 == 0){ // Logistic regression
-              if (phase_f.gate % 2 == 0){ // AUC
-                picture('F1_E3_D2.png')
-              }else if (phase_f.gate % 3 == 0){ //Accuracy
+            } else if (phase_e.gate%5 == 0){ 
+              if (phase_f.gate % 2 == 0){ 
+                picture('F1_E3_D2.png', 600)
+              }else if (phase_f.gate % 3 == 0){
                 msg("You get accuracy of 50\%! Yikes D:")
-              }else if (phase_f.gate % 5 == 0){ //Cross-validation
+              }else if (phase_f.gate % 5 == 0){ 
                 msg("You get average cross-validation score of 50.04926108374385\%! Yikes D:")
               }
             }
-          } else if (phase_d.gate % 11 == 0){ // AVG LOG BAND
-            if (phase_e.gate % 2 == 0){ // LDA
-              // validation
-              if (phase_f.gate % 2 == 0){ // AUC
-                picture('F1_E1A_D3.png')
-              }else if (phase_f.gate % 3 == 0){ // Accuracy
+          } else if (phase_d.gate % 11 == 0){
+            if (phase_e.gate % 2 == 0){ 
+              if (phase_f.gate % 2 == 0){ 
+                picture('F1_E1A_D3.png', 600)
+              }else if (phase_f.gate % 3 == 0){ 
                 msg("You get accuracy of 78.57142857142857\%!")
-              }else if (phase_f.gate % 5 == 0){ //Cross-validation
+              }else if (phase_f.gate % 5 == 0){
                 msg("You get average cross-validation score of 85.36945812807882\%!")
               }
-            } else if (phase_e.gate%3 == 0){ // Shrinkage LDA
-                if (phase_f.gate % 2 == 0){ // AUC
-                  picture('F1_E1B_D3.png')
-                }else if (phase_f.gate % 3 == 0){ //Accuracy
+            } else if (phase_e.gate%3 == 0){
+                if (phase_f.gate % 2 == 0){ 
+                  picture('F1_E1B_D3.png', 600)
+                }else if (phase_f.gate % 3 == 0){ 
                   msg("You get accuracy of 78.57142857142857\%!")
-                }else if (phase_f.gate % 5 == 0){//Cross-validation
+                }else if (phase_f.gate % 5 == 0){
                   msg("You get average cross-validation score of 87.4384236453202\%!")
                 }
-              } else if (phase_e.gate%5 == 0){ // Logistic Regression
-                if (phase_f.gate % 2 == 0){ // AUC
-                  picture('F1_E3_D3.png')
-                }else if (phase_f.gate % 3 == 0){ //Accuracy
+              } else if (phase_e.gate%5 == 0){ 
+                if (phase_f.gate % 2 == 0){ 
+                  picture('F1_E3_D3.png', 600)
+                }else if (phase_f.gate % 3 == 0){
                   msg("You get accuracy of 78.57142857142857\%!")
-                }else if (phase_f.gate % 5 == 0){//Cross-validation
+                }else if (phase_f.gate % 5 == 0){
                   msg("You get average cross-validation score of 87.41379310344828\%!")
                 }
               }
-          } else if (phase_d.gate % 13 == 0){ // AVG HILBERT
-            if (phase_e.gate % 2 == 0){ // LDA
-              // validation
-              if (phase_f.gate % 2 == 0){ // AUC
-                picture('F1_E1A_D4.png')
-              }else if (phase_f.gate % 3 == 0){ //Accuracy
+          } else if (phase_d.gate % 13 == 0){ 
+            if (phase_e.gate % 2 == 0){ 
+              if (phase_f.gate % 2 == 0){ 
+                picture('F1_E1A_D4.png', 600)
+              }else if (phase_f.gate % 3 == 0){
                 msg("You get accuracy of 71.42857142857143\%!")
-              }else if (phase_f.gate % 5 == 0){ //Cross-validation
+              }else if (phase_f.gate % 5 == 0){ 
                 msg("You get average cross-validation score of 81.92118226600984\%!")
               }
-            } else if (phase_e.gate%3 == 0){ // Shrinkage LDA
-                if (phase_f.gate % 2 == 0){ // AUC
-                  picture('F1_E1B_D4.png')
-                }else if (phase_f.gate % 3 == 0){ //Accuracy
+            } else if (phase_e.gate%3 == 0){ 
+                if (phase_f.gate % 2 == 0){
+                  picture('F1_E1B_D4.png', 600)
+                }else if (phase_f.gate % 3 == 0){ 
                   msg("You get accuracy of 71.42857142857143\%!")
-                }else if (phase_f.gate % 5 == 0){ //Cross-validation
+                }else if (phase_f.gate % 5 == 0){ 
                   msg("You get average cross-validation score of 79.08866995073891\%!")
                 }
-              } else if (phase_e.gate%5 == 0){ // Logistic regression
-                if (phase_f.gate % 2 == 0){ // AUC
-                  picture('F1_E3_D4.png')
-                }else if (phase_f.gate % 3 == 0){ //Accuracy
+              } else if (phase_e.gate%5 == 0){ 
+                if (phase_f.gate % 2 == 0){
+                  picture('F1_E3_D4.png', 600)
+                }else if (phase_f.gate % 3 == 0){
                   msg("You get accuracy of 71.42857142857143\%!")
-                }else if (phase_f.gate % 5 == 0){ //Cross-validation
+                }else if (phase_f.gate % 5 == 0){
                   msg("You get average cross-validation score of 79.08866995073891\%!")
                 }
               }
           }
-          // _________________ SCORES ABOVE SHOULD BE FINE ___________________________________
           
       } else if (phase_d.gate % 2 == 0 || phase_d.gate % 5 == 0){
         msg("Yikes, you took the wrong CSP components and got chance-level performance :( Should've picked components from both ends of the eigenvalue spectrum")
@@ -1059,92 +1046,82 @@ createRoom('G1', {
     } else if (phase_b.gate % 3 == 0) {
       msg("Yikes, you spectrally filtered the data to a band you don't care about. You obtained chance level performance, as the task at hand has information in the other band. Reload the page to try again, pay attention to the markers!")
     } else if (!(phase_b.gate % 3 == 0 ||  phase_b.gate%5 == 0)){
-      // F1 = AUC [2], F2 = Accuracy [3], F3 = Cross-validation [5]
-    // E1A = LDA [2], E1B = Shrinkage LDA [3], E3 = Logistic regression [5]
-    // D correct spatial filter = [3], D incorrect filters = [2 OR 5], D2 = average amplitude [7], D3 = average log band-power [11], D4 = average Hilbert [13]
-    // B no spectral filter = [neither 3 nor 5], B incorrect spectral filter = [3], B correct spectral filter = [5]
-    
       if (phase_d.gate % 3 == 0){
-        //feature 
-        if (phase_d.gate % 7 == 0){ // AVG COMPONENT
-          // classification
-          if (phase_e.gate % 2 == 0){ // LDA
-            // validation
-            if (phase_f.gate % 2 == 0){ // AUC
-              picture('nf_F1_E1A_D2.png')
-            }else if (phase_f.gate % 3 == 0){ //Accuracy
+        if (phase_d.gate % 7 == 0){
+          if (phase_e.gate % 2 == 0){ 
+            if (phase_f.gate % 2 == 0){ 
+              picture('nf_F1_E1A_D2.png', 600)
+            }else if (phase_f.gate % 3 == 0){
               msg("You get accuracy of 50\%! That's pretty low :/")
-            }else if (phase_f.gate % 5 == 0){ //Cross-validation
+            }else if (phase_f.gate % 5 == 0){
               msg("You get average cross-validation score of 53.49753694581281\%! Yikes D:")
             }
-          } else if (phase_e.gate%3 == 0){ // Shrinkage LDA
-              if (phase_f.gate % 2 == 0){ // AUC
-                picture('nf_F1_E1B_D2.png')
-              }else if (phase_f.gate % 3 == 0){ //Accuracy
+          } else if (phase_e.gate%3 == 0){ 
+              if (phase_f.gate % 2 == 0){ 
+                picture('nf_F1_E1B_D2.png', 600)
+              }else if (phase_f.gate % 3 == 0){ 
                 msg("You get accuracy of 50\%! That's pretty low :/")
-              }else if (phase_f.gate % 5 == 0){ //Cross-validation
+              }else if (phase_f.gate % 5 == 0){ 
                 msg("You get average cross-validation score of 0.49334975369458134\%! Yikes D:")
               }
-            } else if (phase_e.gate%5 == 0){ // Logistic regression
-              if (phase_f.gate % 2 == 0){ // AUC
-                picture('nf_F1_E3_D2.png')
-              }else if (phase_f.gate % 3 == 0){ //Accuracy
+            } else if (phase_e.gate%5 == 0){ 
+              if (phase_f.gate % 2 == 0){ 
+                picture('nf_F1_E3_D2.png', 600)
+              }else if (phase_f.gate % 3 == 0){ 
                 msg("You get accuracy of 46.42857142857143\%! Yikes D:")
-              }else if (phase_f.gate % 5 == 0){ //Cross-validation
+              }else if (phase_f.gate % 5 == 0){
                 msg("You get average cross-validation score of 51.40394088669951\%! Yikes D:")
               }
             }
-          } else if (phase_d.gate % 11 == 0){ // AVG LOG BAND
-            if (phase_e.gate % 2 == 0){ // LDA
-              // validation
-              if (phase_f.gate % 2 == 0){ // AUC
-                picture('nf_F1_E1A_D3.png')
-              }else if (phase_f.gate % 3 == 0){ // Accuracy
+          } else if (phase_d.gate % 11 == 0){ 
+            if (phase_e.gate % 2 == 0){ 
+              if (phase_f.gate % 2 == 0){
+                picture('nf_F1_E1A_D3.png', 600)
+              }else if (phase_f.gate % 3 == 0){ 
                 msg("You get accuracy of 75\%!")
-              }else if (phase_f.gate % 5 == 0){ //Cross-validation
+              }else if (phase_f.gate % 5 == 0){ 
                 msg("You get average cross-validation score of 62.63546798029557\%!")
               }
-            } else if (phase_e.gate%3 == 0){ // Shrinkage LDA
-                if (phase_f.gate % 2 == 0){ // AUC
-                  picture('nf_F1_E1B_D3.png')
-                }else if (phase_f.gate % 3 == 0){ //Accuracy
+            } else if (phase_e.gate%3 == 0){ 
+                if (phase_f.gate % 2 == 0){ 
+                  picture('nf_F1_E1B_D3.png', 600)
+                }else if (phase_f.gate % 3 == 0){ 
                   msg("You get accuracy of 60.71428571428571\%!")
-                }else if (phase_f.gate % 5 == 0){//Cross-validation
+                }else if (phase_f.gate % 5 == 0){
                   msg("You get average cross-validation score of 62.61083743842365\%!")
                 }
-              } else if (phase_e.gate%5 == 0){ // Logistic Regression
-                if (phase_f.gate % 2 == 0){ // AUC
-                  picture('nf_F1_E3A_D3.png')
-                }else if (phase_f.gate % 3 == 0){ //Accuracy
+              } else if (phase_e.gate%5 == 0){ 
+                if (phase_f.gate % 2 == 0){ 
+                  picture('nf_F1_E3A_D3.png', 600)
+                }else if (phase_f.gate % 3 == 0){ 
                   msg("You get accuracy of 71.42857142857143\%!")
-                }else if (phase_f.gate % 5 == 0){//Cross-validation
+                }else if (phase_f.gate % 5 == 0){
                   msg("You get average cross-validation score of 62.61083743842364\%!")
                 }
               }
-          } else if (phase_d.gate % 13 == 0){ // AVG HILBERT
-            if (phase_e.gate % 2 == 0){ // LDA
-              // validation
-              if (phase_f.gate % 2 == 0){ // AUC
-                picture('nf_F1_E1A_D4.png')
-              }else if (phase_f.gate % 3 == 0){ //Accuracy
+          } else if (phase_d.gate % 13 == 0){ 
+            if (phase_e.gate % 2 == 0){ 
+              if (phase_f.gate % 2 == 0){ 
+                picture('nf_F1_E1A_D4.png', 600)
+              }else if (phase_f.gate % 3 == 0){ 
                 msg("You get accuracy of 75\%!")
-              }else if (phase_f.gate % 5 == 0){ //Cross-validation
+              }else if (phase_f.gate % 5 == 0){ 
                 msg("You get average cross-validation score of 64.67980295566502\%!")
               }
-            } else if (phase_e.gate%3 == 0){ // Shrinkage LDA
-                if (phase_f.gate % 2 == 0){ // AUC
-                  picture('nf_F1_E1B_D4.png')
-                }else if (phase_f.gate % 3 == 0){ //Accuracy
+            } else if (phase_e.gate%3 == 0){ 
+                if (phase_f.gate % 2 == 0){ 
+                  picture('nf_F1_E1B_D4.png', 600)
+                }else if (phase_f.gate % 3 == 0){ 
                   msg("You get accuracy of 75\%!")
-                }else if (phase_f.gate % 5 == 0){ //Cross-validation
+                }else if (phase_f.gate % 5 == 0){
                   msg("You get average cross-validation score of 64.67980295566502\%!")
                 }
-              } else if (phase_e.gate%5 == 0){ // Logistic regression
-                if (phase_f.gate % 2 == 0){ // AUC
-                  picture('nf_F1_E3_D4.png')
-                }else if (phase_f.gate % 3 == 0){ //Accuracy
+              } else if (phase_e.gate%5 == 0){ 
+                if (phase_f.gate % 2 == 0){ 
+                  picture('nf_F1_E3_D4.png', 600)
+                }else if (phase_f.gate % 3 == 0){
                   msg("You get accuracy of 75\%!")
-                }else if (phase_f.gate % 5 == 0){ //Cross-validation
+                }else if (phase_f.gate % 5 == 0){
                   msg("You get average cross-validation score of 62.58620689655172\%!")
                 }
               }
@@ -1152,6 +1129,8 @@ createRoom('G1', {
       }else if (phase_d.gate % 2 == 0 || phase_d.gate % 5 == 0){
         msg("Yikes, you took the wrong CSP components and got chance-level performance :( Should've picked components from both ends of the eigenvalue spectrum. You can reload the page to try again!")
       }
+    } else {
+      msg("Yikes, you applied both filters thinking we wouldn't think of that outcome, didn't you? Well now your data is just messed up, so of course you're gonna get chance level performance. What did you expect?")
     }
   },
   dests:[]
