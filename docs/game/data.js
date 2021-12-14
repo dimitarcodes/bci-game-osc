@@ -309,6 +309,11 @@ phase_f.f3.regex = /^(.*)(cross-validation|cross validation)(.*)$/
 
 
 var phase_g = []
+phase_g.hint = "",
+phase_g.available = "",
+phase_g.unavailable = "",
+phase_g.gate = 1,
+phase_g.condition = 2,
 phase_g.g0 = []
 phase_g.g0.alias = "Running the pipeline..."
 phase_g.g0.msg1 = "Performing awesome analysis..."
@@ -320,8 +325,9 @@ phase_g.g0.dests=['G1']
 
 phase_g.g1 = []
 phase_g.g1.alias = "Results"
+phase_g.g1.hint = "You can post these results on brightspace if you're proud of them, or if you think you can do better - refresh the page and start over :) <br><br> note that refreshing the page means you will lose all your progress so write down the steps you took somewhere - we'll probably ask you about how you got to that state if you're one of the winners."
 phase_g.g1.desc = ""
-phase_g.g1.regex = /^(.*)(results)(.*)$/
+phase_g.g1.regex = /^(.*)(results|performance)(.*)$/
 
 var data_state = 0;
 var phase_counter = 0;
@@ -957,7 +963,7 @@ createRoom('G1', {
   desc: phase_g.g1.desc,
   regex: phase_g.g1.regex,
   afterEnter: function(){
-    setHint(phase_g.g0.hint, phase_g)
+    setHint(phase_g.g1.hint, phase_g)
     if (phase_b.gate % 5 == 0){
       if (phase_d.gate % 3 == 0){
         if (phase_d.gate % 7 == 0){

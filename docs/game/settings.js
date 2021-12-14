@@ -1,9 +1,9 @@
 "use strict"
 
 settings.title = "The Mad Thesis Supervisor"
-settings.author = "Dimitar Dimitrov (@mechachki 🐻) and Floris van Wettum (@Florijs 🍦)"
-settings.version = "0.85"
-settings.thanks = ["Michael Tangermann and Jordy Thielen for getting us the extra $$$"]
+settings.author = "Dimitar Dimitrov (@mechachki 🐻) and Floris van Wettum"
+settings.version = "0.85.1"
+settings.thanks = ["Michael Tangermann and Jordy Thielen for supporting us and getting us the extra €€€"]
 settings.warnings = "No warnings have been set for this game."
 settings.playMode = "play"
 
