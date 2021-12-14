@@ -2,7 +2,7 @@
 
 settings.title = "The Mad Thesis Supervisor"
 settings.author = "Da TAs 😎"
-settings.version = "0.81"
+settings.version = "0.84"
 settings.thanks = ["Michael Tangermann and Jordy Thielen for getting us the extra $$$"]
 settings.warnings = "No warnings have been set for this game."
 settings.playMode = "play"
