@@ -60,13 +60,14 @@ const lang = {
     PurchaseFromList:/^buy$|^purchase$/,
     
     // Use item
-    Examine:/^(?:examine|exam|ex|x) (.+)$/,
-    LookAt:/^(?:look at|look|l) (.+)$/,
+    //DEPRECATED VERBS
+    Examine:/^(?:DEPRECATEDEXAMIRNER) (.+)$/,
+    LookAt:/^(?:DEPRECATEDLOOKRRT) (.+)$/,
     LookOut:/^(?:look out of|look out) (.+)$/,
     LookBehind:/^(?:look behind|check behind) (.+)$/,
     LookUnder:/^(?:look under|check under) (.+)$/,
-    LookInside:/^(?:look inside|look in) (.+)$/,
-    LookThrough:/^(?:look|peek|peer) (?:down|through) (.+)$/,
+    LookInside:/^(?:DEPRCATEDLORK) (.+)$/,
+    LookThrough:/^(?:DEPRECATTDRLE) (.+)$/,
     Search:/^(?:search) (.+)$/,
     Take:/^(?:take|get|pick up|pick|t|grab) (.+)$/,
     Drop:/^(?:drop|d|discard) (.+)$/,

@@ -38,7 +38,7 @@ phase_a.hint = ""
 
 phase_a.a0 = []
 phase_a.a0.alias = "Introduction"
-phase_a.a0.desc = "Hi! Welcome to this interactive BCI experience! In this little game you will go through a short story and analysis pipeline. No fear, no 'spooky' code this time. The game is structured as follows: you move between states by performing certain actions, these actions can be performed by typing out what has to be done (e.g., 'plot frequency spectrum' / 'inspect marker file' / 'apply PCA' etc.). <br> It is important that you always start your action with one of the following words: perform/plot/apply/inspect/explore/use/remove/pick/choose/select/compute/ask about/go to. If at any point you are lost or unsure how things work, you can always type 'help'. <br> <br> Are you ready? Type: 'go to first thesis meeting'"
+phase_a.a0.desc = "Hi! Welcome to this interactive BCI experience! In this little game you will go through a short story and analysis pipeline. No fear, no 'spooky' code this time. The game is structured as follows: you move between states by performing certain actions, these actions can be performed by typing out what has to be done (e.g., 'plot frequency spectrum' / 'inspect marker file' / 'apply PCA' etc.). <br> It is important that you always start your action with one of the following words: <br><br><i>perform / plot/ apply / inspect / exammine /look at/ explore / use / remove / pick / choose / select / compute / ask about / go to</i><br><br> If at any point you are lost or unsure how things work, you can always type 'help'. <br> <br> Are you ready? Type: 'go to first thesis meeting'"
 phase_a.a0.hint = "Go ahead - type 'go to the first meeting'"
 phase_a.a0.dests = ['A1']
 
