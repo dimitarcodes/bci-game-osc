@@ -1,8 +1,8 @@
 "use strict"
 
 settings.title = "The Mad Thesis Supervisor"
-settings.author = "Da TAs 😎"
-settings.version = "0.8"
+settings.author = "Da TAs (Dimitar Dimitrov and Floris van Wettum) 😎"
+settings.version = "0.82"
 settings.thanks = ["Michael Tangermann and Jordy Thielen for getting us the extra $$$"]
 settings.warnings = "No warnings have been set for this game."
 settings.playMode = "play"
