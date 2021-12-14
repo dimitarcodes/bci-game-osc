@@ -2,10 +2,10 @@
 
 settings.title = "The Mad Thesis Supervisor"
 settings.author = "Da TAs 😎"
-settings.version = "0.68"
+settings.version = "0.74"
 settings.thanks = ["Michael Tangermann and Jordy Thielen for getting us the extra $$$"]
 settings.warnings = "No warnings have been set for this game."
-settings.playMode = "dev"
+settings.playMode = "beta"
 
 //turn off compass
 settings.compassPane = false
