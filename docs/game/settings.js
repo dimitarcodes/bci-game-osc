@@ -5,7 +5,7 @@ settings.author = "Da TAs 😎"
 settings.version = "0.68"
 settings.thanks = ["Michael Tangermann and Jordy Thielen for getting us the extra $$$"]
 settings.warnings = "No warnings have been set for this game."
-settings.playMode = "beta"
+settings.playMode = "dev"
 
 //turn off compass
 settings.compassPane = false
