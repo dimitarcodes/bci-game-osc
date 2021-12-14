@@ -21,20 +21,3 @@ commands.unshift(new Cmd('GoTo', {
     return failedmsg("Oopsie woopsie! You tried to perform an action that we didn't expect you to do!", {item:room})
   },
 }))
-
-
-const walkthroughs = {
-  a:[
-    "go to meeting",
-    "inspect markers",
-    "inspect sampling frequency",
-    "go to preprocessing",
-    "apply spectral filter",
-    "choose band a",
-    "perform downsampling",
-    "perform epoching",
-    "go to spatial filtering",
-    "perform csp",
-    "select component set c"
-  ]
-}
