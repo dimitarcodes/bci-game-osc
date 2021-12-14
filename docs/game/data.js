@@ -1057,7 +1057,7 @@ createRoom('G1', {
         msg("Yikes, you took the wrong CSP components and got chance-level performance :( Should've picked components from both ends of the eigenvalue spectrum")
       }
     } else if (phase_b.gate % 3 == 0) {
-      msg("Yikes, you spectrally filtered the data to a band you don't care about. You obtained chance level performance, as the task at hand has information in the other band - check the markers again.")
+      msg("Yikes, you spectrally filtered the data to a band you don't care about. You obtained chance level performance, as the task at hand has information in the other band. Reload the page to try again, pay attention to the markers!")
     } else if (!(phase_b.gate % 3 == 0 ||  phase_b.gate%5 == 0)){
       // F1 = AUC [2], F2 = Accuracy [3], F3 = Cross-validation [5]
     // E1A = LDA [2], E1B = Shrinkage LDA [3], E3 = Logistic regression [5]
@@ -1150,7 +1150,7 @@ createRoom('G1', {
               }
           }
       }else if (phase_d.gate % 2 == 0 || phase_d.gate % 5 == 0){
-        msg("Yikes, you took the wrong CSP components and got chance-level performance :( Should've picked components from both ends of the eigenvalue spectrum")
+        msg("Yikes, you took the wrong CSP components and got chance-level performance :( Should've picked components from both ends of the eigenvalue spectrum. You can reload the page to try again!")
       }
     }
   },
