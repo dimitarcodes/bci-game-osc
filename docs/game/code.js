@@ -10,7 +10,7 @@ commands.unshift(new Cmd('GoTo', {
   ],
   script:function(objects) {
     const room = objects[0][0]
-    if (room === currentLocation) return failedmsg("As if by magic, you are suddenly... where you already were.")
+    if (room === currentLocation) return failedmsg("You already performed that action action just now.")
     if (!room.room) return failedmsg("{pv:item:be:true} not a destination.", {item:room})
     for (const ex of currentLocation.dests) {
       log(ex.name)
@@ -21,3 +21,20 @@ commands.unshift(new Cmd('GoTo', {
     return failedmsg("Oopsie woopsie! You tried to perform an action that we didn't expect you to do!", {item:room})
   },
 }))
+
+
+const walkthroughs = {
+  a:[
+    "go to meeting",
+    "inspect markers",
+    "inspect sampling frequency",
+    "go to preprocessing",
+    "apply spectral filter",
+    "choose band a",
+    "perform downsampling",
+    "perform epoching",
+    "go to spatial filtering",
+    "perform csp",
+    "select component set c"
+  ]
+}

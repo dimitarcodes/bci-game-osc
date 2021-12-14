@@ -13,6 +13,13 @@ function setHint(hint, phase){
   }
 }
 
+function resetPhaseHint(phase){
+  findCmd('MetaHint').script = function() {
+    metamsg(phase.hint)
+    return world.SUCCESS_NO_TURNSCRIPTS
+  }
+}
+
 function mandatory(phase, prime){
   phase.gate = phase.gate*prime
   if (phase.gate % phase.condition === 0) {
@@ -53,14 +60,15 @@ phase_a.a3.alias = "Exploring the markers"
 phase_a.a3.desc = "You take a look at the markers encoded in the metadata of the files, it appears that there are a few markers used in this dataset:  <br> Event - Description <br>276 - Idling EEG (eyes open) <br>277- Idling EEG (eyes closed) <br>768 - Start of a trial <br>769 - Cue onset left hand MI (class 1) <br>770 - Cue onset right hand MI (class 2) <br>783 - Cue unknown <br>1023 - Rejected trial <br>1072 - Eye movements <br>32766 - Start of a new run <br> <br> You also see that there is roughly 10 seconds between markers. That is quite long for events? "
 phase_a.a3.hint = "What does timing of the events tell us about the type of paradigm? Is it an ERP experiment? Or are we in the oscillatory domain?"
 phase_a.a3.dests = ['M0','A4','A5']
-phase_a.a3.regex = /^(.*)(events|markers)(.*)$/
+phase_a.a3.regex = /^(.*)(events|marker)(.*)$/
 
 phase_a.a4 = []
 phase_a.a4.alias = "Sampling frequecy"
 phase_a.a4.desc = "You take a look at the sampling frequency encoded in the metadata of the files, it appears that the data was sampled at 250Hz."
 phase_a.a4.hint = ""
 phase_a.a4.dests = ['M0','A3','A5']
-phase_a.a4.regex = /^(.*)(sampling frequency|sampling rate)(.*)$/
+phase_a.a4.regex = /^(.*)(sampl(.*)frequency|sampl(.*)rate)$/
+///^(.*)(sampling frequency|sampling rate)(.*)$/
 
 phase_a.a5 = []
 phase_a.a5.alias = "Exploring the EEG Channels"
@@ -76,7 +84,7 @@ phase_b.gate = 1;
 phase_b.condition = 14;
 phase_b.unavailable = "You can probably do something else as well ;)"
 phase_b.available = " You've already done the most important steps of this phase. You can probably move on to the spatial filter selection phase - type 'go to spatial filtering phase'."
-phase_b.hint = ""
+phase_b.hint = "There are numerous things to do here, what is typically done before we move to actual analysis or training models?"
 
 phase_b.b0 = []
 phase_b.b0.alias = "Start Preprocessing"
@@ -102,7 +110,7 @@ phase_b.b3.regex = /^(.*)(noisy channel)(.*)$/
 
 phase_b.b4 = []
 phase_b.b4.alias = "Downsampling"
-phase_b.b4.desc = "You down-sample the data to 100Hz. Why can we do this? Will it not cause important information to be lost?"
+phase_b.b4.desc = "You down-sample the data to 100Hz."
 phase_b.b4.hint = "Remember, this 50Hz peak isn't due to brain activity."
 phase_b.b4.dests = ['B1','M0','B3','B5','B6']
 phase_b.b4.regex = /^(.*)(resampl|downsampl)(.*)$/
@@ -184,49 +192,49 @@ phase_c.c4.regex = /^(.*)(spoc|source power comodulation)(.*)$/
 
 var phase_d = []
 phase_d.gate = 1
-phase_d.condition = 2
+phase_d.condition = 1
 phase_d.unavailable = "You're still missing a crucial step!"
-phase_d.available = "You could already go to the next phase: 'model selection'. IF you wish to do that, type 'go to model selection'."
+phase_d.available = "You *could* already go to the next phase: 'model selection'. IF you wish to do that, type 'go to model selection'."
 phase_d.hint = ""
 
 phase_d.d1A = []
 phase_d.d1A.alias = "Components with the largest eigenvalues"
-phase_d.d1A.desc = "sinkstate"
-phase_d.d1A.hint = "What do the filters of CSP learn? What do the filters from both sides of the spectrum stand for? What information does the band-power of the CSP components have? Can you transform this information into features? <br> You decided to select 4 out of the 22 CSP components, which ones do you take?: <br> <br> A: 4 with the largest eigenvalues <br> B: 2 from both sides of the eigenvalue spectrum <br> <br> type: 'select component set A', 'select component set B' or 'select component set C' to continue.",
-phase_d.d1A.dests = ['D2', 'D3', 'D4', 'E0'] //sinkstate
+phase_d.d1A.desc = "For each epoch, you reduce t he number of components to only 4, namely the ones with the largest corresponding eigenvalues"
+phase_d.d1A.hint = "What information does the power of the CSP components have? Can you transform this information into features?",
+phase_d.d1A.dests = ['D2', 'D3', 'D4', 'E0']
 phase_d.d1A.regex = /^(.*)(component set a)(.*)$/
 
 phase_d.d1B = []
 phase_d.d1B.alias = "Components from both sides of the spectrum"
 phase_d.d1B.desc = "For each epoch, you reduce the number components to only 4 in total, 2 from both sides of the eigenvalue spectrum."
-phase_d.d1B.hint = "Can you transform these components into features such that can be fed into a machine learning model?"
+phase_d.d1B.hint = "What information does the power of the CSP components have? Can you transform these components into features such that can be fed into a machine learning model?"
 phase_d.d1B.dests = ['D2', 'D3', 'D4', 'E0']
 phase_d.d1B.regex = /^(.*)(component set b)(.*)$/
 
 phase_d.d1C = []
 phase_d.d1C.alias = "Components with the smallest eigenvalues"
-phase_d.d1A.desc = "sinkstate"
-phase_d.d1C.hint = "What do the filters of CSP learn? What do the filters from both sides of the spectrum stand for? What information does the band-power of the CSP components have? Can you transform this information into features? <br> You decided to select 4 out of the 22 CSP components, which ones do you take?: <br> <br> A: 4 with the largest eigenvalues <br> B: 2 from both sides of the eigenvalue spectrum <br> <br> type: 'select component set A', 'select component set B' or 'select component set C' to continue.",
-phase_d.d1C.dests = ['D2', 'D3', 'D4', 'E0'] //bottle neck
+phase_d.d1C.desc = "For each epoch, you reduce t he number of components to only 4, namely the ones with the smallest corresponding eigenvalues"
+phase_d.d1C.hint = "What information does the power of the CSP components have? Can you transform this information into features?"
+phase_d.d1C.dests = ['D2', 'D3', 'D4', 'E0']
 phase_d.d1C.regex = /^(.*)(component set c)(.*)$/
 
 phase_d.d2 = []
 phase_d.d2.alias = "Compute average amplitdue"
-phase_d.d2.desc = "For each component, you compute the average amplitude. You have now entered the 'model selection' phase."
+phase_d.d2.desc = "For each component, you compute the average amplitude. You have now entered the 'model selection' phase as there was nothing left for you to do in this feature extraction phase."
 phase_d.d2.hint = "Why the average? What can we do with these values?"
 phase_d.d2.dests = ['E0']
 phase_d.d2.regex = /^(.*)(average amplitude|average csp component|average component)(.*)$/
 
 phase_d.d3 = []
 phase_d.d3.alias = "Compute average log-band power"
-phase_d.d3.desc = "For each component, you compute the average log band power. You have now entered the 'model selection' phase."
+phase_d.d3.desc = "For each component, you compute the average log band power. You have now entered the 'model selection' phase as there was nothing left for you to do in this feature extraction phase."
 phase_d.d3.hint = "Why the average? What can we do with these values?"
 phase_d.d3.dests = ['E0']
 phase_d.d3.regex = /^(.*)(band-power|bandpower|band power)(.*)$/
 
 phase_d.d4 = []
 phase_d.d4.alias = "Compute average Hilbert transform / envelope"
-phase_d.d4.desc = "For each component, you compute the average envelope. You have now entered the 'model selection' phase."
+phase_d.d4.desc = "For each component, you compute the average envelope. You have now entered the 'model selection' phase as there was nothing left for you to do in this feature extraction phase."
 phase_d.d4.hint = "Why the average? What can we do with these values?"
 phase_d.d4.dests = ['E0']
 phase_d.d4.regex = /^(.*)(hilbert|envelope)(.*)$/
@@ -243,6 +251,7 @@ phase_e.e0.alias = "Model selection"
 phase_e.e0.desc = "Now it's time to choose what type of model you'll be using to make predictions."
 phase_e.e0.hint = "You have extracted features from last phase and already have labels (epoch markers), what model is suited for training on this data?",
 phase_e.e0.dests = ['E1A', 'E1B','E3']
+phase_e.e0.regex = /^(model)(.*)$/
 
 phase_e.e1A = []
 phase_e.e1A.alias = "LDA"
@@ -493,7 +502,8 @@ createRoom("B0", {
   headingAlias: phase_b.b0.alias,
   desc: phase_b.b0.desc,
   regex: phase_b.b0.regex,
-  dests: phase_b.b0.dests.map(x => new Exit(x))
+  dests: phase_b.b0.dests.map(x => new Exit(x)),
+  afterEnter: function(){resetPhaseHint(phase_b)}
 })
 
 createRoom('B1', {
@@ -775,7 +785,8 @@ createRoom('D1A', {
   headingAlias: phase_d.d1A.alias,
   desc: phase_d.d1A.desc,
   afterFirstEnter: function(){mandatory(phase_d, 2)},
-  afterEnter: function(){setHint(phase_d.d1A.hint, phase_d)},
+  afterEnter: function(){
+    setHint(phase_d.d1A.hint, phase_d)},
   regex:phase_d.d1A.regex,
   dests:phase_d.d1A.dests.map(x => new Exit(x))
 })
@@ -783,7 +794,8 @@ createRoom('D1B', {
   headingAlias: phase_d.d1B.alias,
   desc: phase_d.d1B.desc,
   afterFirstEnter: function(){mandatory(phase_d, 3)},
-  afterEnter: function(){setHint(phase_d.d1B.hint, phase_d)},
+  afterEnter: function(){
+    setHint(phase_d.d1B.hint, phase_d)},
   regex:phase_d.d1B.regex,
   dests:phase_d.d1B.dests.map(x => new Exit(x))
 })
@@ -792,7 +804,8 @@ createRoom('D1C', {
   headingAlias: phase_d.d1C.alias,
   desc: phase_d.d1C.desc,
   afterFirstEnter: function(){mandatory(phase_d, 5)},
-  afterEnter: function(){setHint(phase_d.d1C.hint, phase_d)},
+  afterEnter: function(){
+    setHint(phase_d.d1C.hint, phase_d)},
   regex:phase_d.d1C.regex,
   dests:phase_d.d1C.dests.map(x => new Exit(x))
 })
@@ -831,6 +844,7 @@ createRoom('D4', {
 createRoom('E0', {
   headingAlias: phase_e.e0.alias,
   desc: phase_e.e0.desc,
+  regex: phase_e.e0.regex,
   afterEnter: function(){setHint(phase_e.e0.hint, phase_e)},
   dests:phase_e.e0.dests.map(x => new Exit(x)).concat(
     new Exit('E2',{
@@ -931,7 +945,7 @@ createRoom('G0', {
     msg(phase_g.g0.msg1)
     picture("loading" + getRandomInt(11) + '.gif', 600)
     msg(phase_g.g0.msg2)
-    picture("loading" + getRandomInt(11) + '.gif', 600)
+    //picture("loading" + getRandomInt(11) + '.gif', 600)
     msg(phase_g.g0.msg3)
   },
   dests:phase_g.g0.dests.map(x => new Exit(x))
