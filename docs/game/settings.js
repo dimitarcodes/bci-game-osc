@@ -2,7 +2,7 @@
 
 settings.title = "The Mad Thesis Supervisor"
 settings.author = "Dimitar Dimitrov (@mechachki 🐻) and Floris van Wettum"
-settings.version = "0.87"
+settings.version = "0.88"
 settings.thanks = ["Michael Tangermann and Jordy Thielen for supporting us and getting us the extra €€€"]
 settings.warnings = "No warnings have been set for this game."
 settings.playMode = "play"
