@@ -1097,7 +1097,7 @@ createRoom('G1', {
                 }
               } else if (phase_e.gate%5 == 0){ 
                 if (phase_f.gate % 2 == 0){ 
-                  picture('nf_F1_E3A_D3.png', 600)
+                  picture('nf_F1_E3_D3.png', 600)
                 }else if (phase_f.gate % 3 == 0){ 
                   msg("You get accuracy of 71.42857142857143\%!")
                 }else if (phase_f.gate % 5 == 0){
