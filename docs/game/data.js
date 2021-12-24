@@ -938,7 +938,7 @@ createRoom('F3', {
   desc: phase_f.f3.desc,
   regex: phase_f.f3.regex,
   afterEnter: function(){
-    mandatory(phase_e,5)
+    mandatory(phase_f,5)
     util.defaultSimpleExitUse(game.player, new Exit('G0'))},
   dests:phase_f.f3.dests.map(x => new Exit(x))
 })
