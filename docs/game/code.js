@@ -18,6 +18,6 @@ commands.unshift(new Cmd('GoTo', {
         return ex.use(player, ex) ? world.SUCCESS : world.FAILED
       }
     }
-    return failedmsg("Oopsie woopsie! You tried to perform an action that we didn't expect you to do!", {item:room})
+    return failedmsg("Oopsie woopsie! You tried to perform an action that we didn't expect you to do! It's possible the action is valid but not yet appropriate, so you might wanna try it again later, after having done a bit more exploring :)", {item:room})
   },
 }))

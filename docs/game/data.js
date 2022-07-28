@@ -38,20 +38,20 @@ phase_a.hint = ""
 
 phase_a.a0 = []
 phase_a.a0.alias = "Introduction"
-phase_a.a0.desc = "Hi! Welcome to this interactive BCI experience! In this little game you will go through a short story and analysis pipeline. No fear, no 'spooky' code this time. The game is structured as follows: you move between states by performing certain actions, these actions can be performed by typing out what has to be done (e.g., 'plot frequency spectrum' / 'inspect marker file' / 'apply PCA' etc.). <br> It is important that you always start your action with one of the following words: <br><br><i>perform / plot/ apply / inspect / exammine /look at/ explore / use / remove / pick / choose / select / compute / ask about / go to</i><br><br> If at any point you are lost or unsure how things work, you can always type 'help'. <br> <br> Are you ready? Type: 'go to first thesis meeting'"
+phase_a.a0.desc = "Hi! Welcome to this interactive BCI experience! In this little game you will go through a short story with the goal of creating an analysis pipeline. No fear, no 'spooky' code this time.<br><br>The game is played by giving it written commands describing the action you want to do. Think bigger picture - you don't need the implementation deatails, but rather - the next general step you'd take, for example: <br><br><i style='color:green'>'plot frequency spectrum'</i><br><br> or <br><br><i style='color:green'>'inspect marker file'</i><br><br> and even apply an algorithm like <br><br><i style='color:green'>'apply PCA'</i><br><br> It is <b>important</b> that you always start your action with one of the following words: <br><br><i>perform / plot/ apply / inspect / exammine /look at/ explore / use / remove / pick / choose / select / compute / ask about / go to</i><br><br> If at any point you are lost or unsure how things work, you can always type 'help'. <br> <br> Are you ready? Type: 'go to first thesis meeting'"
 phase_a.a0.hint = "Go ahead - type 'go to the first meeting'"
 phase_a.a0.dests = ['A1']
 
 phase_a.a1 = []
 phase_a.a1.alias = "The First Thesis Meeting"
-phase_a.a1.desc = "Your silly thesis supervisor has bought some EEG data from some sketchy website. He just clicked 'Download' on the zip file and then cleared his browser history. Now you have no idea what experiment the data came from and what its specs are. Your supervisor is persistent in that you should be able to get a good model from this data. 'I had a PhD student that worked on that data! When he had trained a good model, he called me that he was on his way to show me, but then mysterously vanished... So now it's up to you to do put your BCI skills to some good use, go get me some results!' <br> You: 'Where exactly did you get the data from?' <br> Sup: 'Uuuuuhm.... the internet?'  <br> You: 'Do you remember what the experiment was?' <br> Sup: 'Nope, but inspecting the data and looking at the markers should be a good starting point, off you go!'"
+phase_a.a1.desc = "Your silly thesis supervisor has bought some EEG data from some sketchy website. He just clicked 'Download' on the zip file and then cleared his browser history. Now you have no idea what experiment the data came from and what its specs are. Your supervisor is persistent in that you should be able to get a good model from this data. <br><br> Supervisor: 'I had a PhD student that worked on that data! When he had trained a good model, he called me that he was on his way to show me, but then mysterously vanished... So now it's up to you to do put your BCI skills to some good use, go get me some results!' <br><br> You: 'Where exactly did you get the data from?' <br><br> Sup: 'Uuuuuhm.... the internet?'  <br><br> You: 'Do you remember what the experiment was?' <br><br> Sup: 'Nope, but inspecting the data and looking at the markers should be a good starting point, off you go!'<br><br> You go home (or the the TK/Altrium) and put the files on your laptop. You load up your favorite IDE (probably VSCode). What do you wanna check first?"
 phase_a.a1.hint = "Hmm.. the supervisor told me to inspect the data and especially the markers, I guess I should do that."
 phase_a.a1.dests = ['M0','A3','A4','A5']
 phase_a.a1.regex = /^(.*)(meeting|thesis)(.*)$/
 
 phase_a.a3 = []
 phase_a.a3.alias = "Exploring the markers"
-phase_a.a3.desc = "You take a look at the markers encoded in the metadata of the files, it appears that there are a few markers used in this dataset:  <br> Event - Description <br>276 - Idling EEG (eyes open) <br>277- Idling EEG (eyes closed) <br>768 - Start of a trial <br>769 - Cue onset left hand MI (class 1) <br>770 - Cue onset right hand MI (class 2) <br>783 - Cue unknown <br>1023 - Rejected trial <br>1072 - Eye movements <br>32766 - Start of a new run <br> <br> You also see that there is roughly 10 seconds between markers. That is quite long for events? "
+phase_a.a3.desc = "You take a look at the markers encoded in the metadata of the files, it appears that there are a few markers used in this dataset: <br> <br> Event - Description <br>276 - Idling EEG (eyes open) <br>277- Idling EEG (eyes closed) <br>768 - Start of a trial <br>769 - Cue onset left hand MI (class 1) <br>770 - Cue onset right hand MI (class 2) <br>783 - Cue unknown <br>1023 - Rejected trial <br>1072 - Eye movements <br>32766 - Start of a new run <br> <br> You also see that there is roughly 10 seconds between markers. That is quite long for events.. What do you want to do next?"
 phase_a.a3.hint = "What does timing of the events tell us about the type of paradigm? Is it an ERP experiment? Or are we in the oscillatory domain? What does the naming of the markers tell us about the paradigm? <br> I should probably also check the specs of the recordings, like the sampling frequency, before I start preprocessing."
 phase_a.a3.dests = ['M0','A4','A5']
 phase_a.a3.regex = /^(.*)(event|marker)(.*)$/
@@ -138,7 +138,7 @@ phase_b.b6.alias = "Epoching"
 phase_b.b6.desc = "You cut the data into epochs of [-1, 7]s, such that each epoch contains the EEG-signals of one of the two classes. Remember the markers, these contain the classes we are interested in."
 phase_b.b6.hint = "This could be the last step of the preprocessing phase. You could try to 'go to choosing spatial filter'. If you're not allowed to do so, you probably missed a step."
 phase_b.b6.dests = ['B1','M0','B3','B4','B5']
-phase_b.b6.regex = /^(.*)(epoch)(.*)$/
+phase_b.b6.regex = /^(.*)(epoch|split)(.*)$/
 
 // SPATIAL FILTERING PHASE DATA
 var phase_c = []

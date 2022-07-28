@@ -454,7 +454,7 @@ const lang = {
 
 
   // General command messages
-  not_known_msg:"Oopsie woopsie! You tried to perform an action that we didn't expect you to do!",
+  not_known_msg:"Oopsie woopsie! You tried to perform an action that we didn't expect you to do! Check the spelling and try rephrasing.",
   disambig_msg:"You seem to be on the right track. Either the command is incomplete or the action shouldn't be performed yet.",
   no_multiples_msg:"You cannot use multiple objects with that command.",
   nothing_msg:"Nothing there to do that with.",
