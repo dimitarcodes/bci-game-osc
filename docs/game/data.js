@@ -38,7 +38,7 @@ phase_a.hint = ""
 
 phase_a.a0 = []
 phase_a.a0.alias = "Introduction"
-phase_a.a0.desc = "Hi! Welcome to this interactive BCI experience! In this little game you will go through a short story with the goal of creating an analysis pipeline. No fear, no 'spooky' code this time.<br><br>The game is played by giving it written commands describing the action you want to do. Think bigger picture - you don't need the implementation deatails, but rather - the next general step you'd take, for example: <br><br><i style='color:green'>'plot frequency spectrum'</i><br><br> or <br><br><i style='color:green'>'inspect marker file'</i><br><br> and even apply an algorithm like <br><br><i style='color:green'>'apply PCA'</i><br><br> It is <b>important</b> that you always start your action with one of the following words: <br><br><i>perform / plot/ apply / inspect / exammine /look at/ explore / use / remove / pick / choose / select / compute / ask about / go to</i><br><br> If at any point you are lost or unsure how things work, you can always type 'help'. <br> <br> Are you ready? Type: 'go to first thesis meeting'"
+phase_a.a0.desc = "Hi! Welcome to this interactive BCI experience! In this little game you will go through a short story with the goal of creating an analysis pipeline. No fear, no 'spooky' code this time.<br><br>The game is played by giving it written commands describing the action you want to do. Think bigger picture - you don't need the implementation deatails, but rather - the next general step you'd take, for example: <br><br><i style='color:green'>'plot frequency spectrum'</i><br><br> or <br><br><i style='color:green'>'inspect marker file'</i><br><br> and even apply an algorithm like <br><br><i style='color:green'>'apply PCA'</i><br><br> It is <b>important</b> that you always start your action with one of the following words: <br><br><i>perform / plot/ apply / inspect / examine / look at / explore / use / remove / pick / choose / select / compute / ask about / go to</i><br><br> If at any point you are lost or unsure how things work, you can always type 'help'. <br> <br> Are you ready? Type: 'go to first thesis meeting'"
 phase_a.a0.hint = "Go ahead - type 'go to the first meeting'"
 phase_a.a0.dests = ['A1']
 
@@ -51,7 +51,7 @@ phase_a.a1.regex = /^(.*)(meeting|thesis)(.*)$/
 
 phase_a.a3 = []
 phase_a.a3.alias = "Exploring the markers"
-phase_a.a3.desc = "You take a look at the markers encoded in the metadata of the files, it appears that there are a few markers used in this dataset: <br> <br> Event - Description <br>276 - Idling EEG (eyes open) <br>277- Idling EEG (eyes closed) <br>768 - Start of a trial <br>769 - Cue onset left hand MI (class 1) <br>770 - Cue onset right hand MI (class 2) <br>783 - Cue unknown <br>1023 - Rejected trial <br>1072 - Eye movements <br>32766 - Start of a new run <br> <br> You also see that there is roughly 10 seconds between markers. That is quite long for events.. What do you want to do next?"
+phase_a.a3.desc = "You take a look at the markers encoded in the metadata of the files, it appears that there are a few markers used in this dataset: <br> <br> Event - Description <br>276 - Idling EEG (eyes open) <br>277- Idling EEG (eyes closed) <br>768 - Start of a trial <br>769 - Cue onset left hand MI (class 1) <br>770 - Cue onset right hand MI (class 2) <br>783 - Cue unknown <br>1023 - Rejected trial <br>1072 - Eye movements <br>32766 - Start of a new run <br> <br> You also see that there is roughly 10 seconds between markers. That is quite long for events. What do you want to do next?"
 phase_a.a3.hint = "What does timing of the events tell us about the type of paradigm? Is it an ERP experiment? Or are we in the oscillatory domain? What does the naming of the markers tell us about the paradigm? <br> I should probably also check the specs of the recordings, like the sampling frequency, before I start preprocessing."
 phase_a.a3.dests = ['M0','A4','A5']
 phase_a.a3.regex = /^(.*)(event|marker)(.*)$/
@@ -286,13 +286,13 @@ phase_f.f0 = []
 phase_f.f0.alias = "Evaluation strategy selection"
 phase_f.f0.desc = "Now it's time to determine how you will be evaluating your model."
 phase_f.f0.hint = "What validation methods have been discussed? Is there a way to get a performance metric?",
-phase_f.f0.dests = ['F1', 'F2', 'F3'] 
+phase_f.f0.dests = ['F1', 'F2', 'F3']
 phase_f.f0.regex = /^(.*)(evaluation|validation)(.*)$/
 
 phase_f.f1 = []
 phase_f.f1.alias = "AUC ROC"
 phase_f.f1.desc = "You decide to evaluate your model using ROC-AUC."
-phase_f.f1.dests = [] 
+phase_f.f1.dests = []
 phase_f.f1.regex = /^(.*)(auc|area under the curve)(.*)$/
 
 phase_f.f2 = []
@@ -304,7 +304,7 @@ phase_f.f2.regex = /^(.*)(accuracy)(.*)$/
 phase_f.f3 = []
 phase_f.f3.alias = "Cross-validation"
 phase_f.f3.desc = "You decide to evaluate your model using cross-validation."
-phase_f.f3.dests = [] 
+phase_f.f3.dests = []
 phase_f.f3.regex = /^(.*)(cross-validation|cross validation)(.*)$/
 
 
@@ -349,78 +349,78 @@ createRoom("M0", {
     misc.psd.images[data_state].forEach(element => {picture(element,600)})
   },
   regex: misc.psd.regex,
-  dests: [ 
+  dests: [
     new Exit('A3', { simpleUse : function(char){
       if (phase_counter === 0){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(misc.psd.denied[0])
-      } 
+      }
     }),
     new Exit('A4', { simpleUse : function(char){
       if (phase_counter === 0){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(misc.psd.denied[0])
-      } 
+      }
     }),
     new Exit('A5', { simpleUse : function(char){
       if (phase_counter === 0){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(misc.psd.denied[0])
-      } 
+      }
     }),
     new Exit('B0', { simpleUse : function(char){
       if (phase_counter ===0 && phase_a.gate % phase_a.condition === 0){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(phase_a.unavailable)
-      } 
+      }
     }),
     new Exit('B1', { simpleUse : function(char){
       if (phase_counter === 1){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(misc.psd.denied[1])
-      } 
+      }
     }),
     new Exit('B3', { simpleUse : function(char){
       if (phase_counter === 1){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(misc.psd.denied[1])
-      } 
+      }
     }),
     new Exit('B4', { simpleUse : function(char){
       if (phase_counter === 1){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(misc.psd.denied[1])
-      } 
+      }
     }),
     new Exit('B5', { simpleUse : function(char){
       if (phase_counter === 1){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(misc.psd.denied[1])
-      } 
+      }
     }),
     new Exit('B6', { simpleUse : function(char){
       if (phase_counter === 1){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(misc.psd.denied[1])
-      } 
+      }
     }),
     new Exit('C1', { simpleUse : function(char){
       if (phase_counter === 2){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(misc.psd.denied[1])
-      } 
+      }
     }),
     new Exit('C2', { simpleUse : function(char){
       if (phase_counter === 2){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(misc.psd.denied[1])
-      } 
+      }
     }),
     new Exit('C0', { simpleUse : function(char){
       if (phase_counter === 1 && phase_b.gate % phase_b.condition === 0){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(phase_b.unavailable)
-      } 
+      }
     }),
   ]
 })
@@ -457,7 +457,7 @@ createRoom("A3", {
       if (phase_a.gate % phase_a.condition === 0){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(phase_a.unavailable)
-      } 
+      }
     })
   )
 })
@@ -474,7 +474,7 @@ createRoom("A4", {
       if (phase_a.gate % phase_a.condition === 0){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(phase_a.unavailable)
-      } 
+      }
     })
   ),
 })
@@ -490,7 +490,7 @@ createRoom('A5', {
       if (phase_a.gate % phase_a.condition === 0){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(phase_a.unavailable)
-      } 
+      }
     })
   ),
 })
@@ -520,23 +520,23 @@ createRoom('B1', {
         if (false){
             return util.defaultSimpleExitUse(char, this)
           }else return falsemsg(phase_c.c1.unavailable)
-        } 
+        }
     }),
     new Exit('C2',{
       simpleUse:function(char){
         if (false){
             return util.defaultSimpleExitUse(char, this)
           }else return falsemsg(phase_c.c2.unavailable)
-        } 
+        }
     }),
     new Exit('C0', {
       simpleUse:function(char){
       if (phase_b.gate % phase_b.condition === 0){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(phase_b.unavailable)
-      } 
+      }
     })
-  ) 
+  )
 })
 
 
@@ -551,21 +551,21 @@ createRoom('B3', {
         if (false){
             return util.defaultSimpleExitUse(char, this)
           }else return falsemsg(phase_c.c1.unavailable)
-        } 
+        }
     }),
     new Exit('C2',{
       simpleUse:function(char){
         if (false){
             return util.defaultSimpleExitUse(char, this)
           }else return falsemsg(phase_c.c2.unavailable)
-        } 
+        }
     }),
     new Exit('C0', {
       simpleUse:function(char){
       if (phase_b.gate % phase_b.condition === 0){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(phase_b.unavailable)
-      } 
+      }
     })
   ),
 })
@@ -582,21 +582,21 @@ createRoom('B4', {
         if (false){
             return util.defaultSimpleExitUse(char, this)
           }else return falsemsg(phase_c.c1.unavailable)
-        } 
+        }
     }),
     new Exit('C2',{
       simpleUse:function(char){
         if (false){
             return util.defaultSimpleExitUse(char, this)
           }else return falsemsg(phase_c.c2.unavailable)
-        } 
+        }
     }),
     new Exit('C0', {
       simpleUse:function(char){
       if (phase_b.gate % phase_b.condition === 0){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(phase_b.unavailable)
-      } 
+      }
     })
   ),
 })
@@ -631,21 +631,21 @@ createRoom('B5A', {
         if (false){
             return util.defaultSimpleExitUse(char, this)
           }else return falsemsg(phase_c.c1.unavailable)
-        } 
+        }
     }),
     new Exit('C2',{
       simpleUse:function(char){
         if (false){
             return util.defaultSimpleExitUse(char, this)
           }else return falsemsg(phase_c.c2.unavailable)
-        } 
+        }
     }),
     new Exit('C0', {
       simpleUse:function(char){
       if (phase_b.gate % phase_b.condition === 0){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(phase_b.unavailable)
-      } 
+      }
     })
   ),
 })
@@ -669,21 +669,21 @@ createRoom('B5B', {
         if (false){
             return util.defaultSimpleExitUse(char, this)
           }else return falsemsg(phase_c.c1.unavailable)
-        } 
+        }
     }),
     new Exit('C2',{
       simpleUse:function(char){
         if (false){
             return util.defaultSimpleExitUse(char, this)
           }else return falsemsg(phase_c.c2.unavailable)
-        } 
+        }
     }),
     new Exit('C0', {
       simpleUse:function(char){
       if (phase_b.gate % phase_b.condition === 0){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(phase_b.unavailable)
-      } 
+      }
     })
   ),
 })
@@ -705,21 +705,21 @@ createRoom('B6', {
         if (false){
             return util.defaultSimpleExitUse(char, this)
           }else return falsemsg(phase_c.c1.unavailable)
-        } 
+        }
     }),
     new Exit('C2',{
       simpleUse:function(char){
         if (false){
             return util.defaultSimpleExitUse(char, this)
           }else return falsemsg(phase_c.c2.unavailable)
-        } 
+        }
     }),
     new Exit('C0', {
       simpleUse:function(char){
       if (phase_b.gate % phase_b.condition === 0){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(phase_b.unavailable)
-      } 
+      }
     })
   ),
 })
@@ -738,7 +738,7 @@ createRoom('C0', {
       if (false){
           return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(phase_c.c4.desc)
-      } 
+      }
   })),
 })
 
@@ -753,7 +753,7 @@ createRoom('C1', {
       if (false){
           return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(phase_c.c4.desc)
-      } 
+      }
   })),
 })
 
@@ -768,7 +768,7 @@ createRoom('C2', {
       if (false){
           return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(phase_c.c4.desc)
-      } 
+      }
   })),
 })
 
@@ -859,7 +859,7 @@ createRoom('E0', {
       if (false){
           return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(phase_e.e2.desc)
-      } 
+      }
   })),
 })
 
@@ -977,39 +977,39 @@ createRoom('G1', {
           } else if (phase_e.gate%3 == 0){
               if (phase_f.gate % 2 == 0){
                 picture('F1_E1B_D2.png', 600)
-              }else if (phase_f.gate % 3 == 0){ 
+              }else if (phase_f.gate % 3 == 0){
                 msg("You get accuracy of 57.14285714285714\%! That's pretty low :/")
               }else if (phase_f.gate % 5 == 0){
                 msg("You get average cross-validation score of 50.71428571428571\%! Yikes D:")
               }
-            } else if (phase_e.gate%5 == 0){ 
-              if (phase_f.gate % 2 == 0){ 
+            } else if (phase_e.gate%5 == 0){
+              if (phase_f.gate % 2 == 0){
                 picture('F1_E3_D2.png', 600)
               }else if (phase_f.gate % 3 == 0){
                 msg("You get accuracy of 50\%! Yikes D:")
-              }else if (phase_f.gate % 5 == 0){ 
+              }else if (phase_f.gate % 5 == 0){
                 msg("You get average cross-validation score of 50.04926108374385\%! Yikes D:")
               }
             }
           } else if (phase_d.gate % 11 == 0){
-            if (phase_e.gate % 2 == 0){ 
-              if (phase_f.gate % 2 == 0){ 
+            if (phase_e.gate % 2 == 0){
+              if (phase_f.gate % 2 == 0){
                 picture('F1_E1A_D3.png', 600)
-              }else if (phase_f.gate % 3 == 0){ 
+              }else if (phase_f.gate % 3 == 0){
                 msg("You get accuracy of 78.57142857142857\%!")
               }else if (phase_f.gate % 5 == 0){
                 msg("You get average cross-validation score of 85.36945812807882\%!")
               }
             } else if (phase_e.gate%3 == 0){
-                if (phase_f.gate % 2 == 0){ 
+                if (phase_f.gate % 2 == 0){
                   picture('F1_E1B_D3.png', 600)
-                }else if (phase_f.gate % 3 == 0){ 
+                }else if (phase_f.gate % 3 == 0){
                   msg("You get accuracy of 78.57142857142857\%!")
                 }else if (phase_f.gate % 5 == 0){
                   msg("You get average cross-validation score of 87.4384236453202\%!")
                 }
-              } else if (phase_e.gate%5 == 0){ 
-                if (phase_f.gate % 2 == 0){ 
+              } else if (phase_e.gate%5 == 0){
+                if (phase_f.gate % 2 == 0){
                   picture('F1_E3_D3.png', 600)
                 }else if (phase_f.gate % 3 == 0){
                   msg("You get accuracy of 78.57142857142857\%!")
@@ -1017,24 +1017,24 @@ createRoom('G1', {
                   msg("You get average cross-validation score of 87.41379310344828\%!")
                 }
               }
-          } else if (phase_d.gate % 13 == 0){ 
-            if (phase_e.gate % 2 == 0){ 
-              if (phase_f.gate % 2 == 0){ 
+          } else if (phase_d.gate % 13 == 0){
+            if (phase_e.gate % 2 == 0){
+              if (phase_f.gate % 2 == 0){
                 picture('F1_E1A_D4.png', 600)
               }else if (phase_f.gate % 3 == 0){
                 msg("You get accuracy of 71.42857142857143\%!")
-              }else if (phase_f.gate % 5 == 0){ 
+              }else if (phase_f.gate % 5 == 0){
                 msg("You get average cross-validation score of 81.92118226600984\%!")
               }
-            } else if (phase_e.gate%3 == 0){ 
+            } else if (phase_e.gate%3 == 0){
                 if (phase_f.gate % 2 == 0){
                   picture('F1_E1B_D4.png', 600)
-                }else if (phase_f.gate % 3 == 0){ 
+                }else if (phase_f.gate % 3 == 0){
                   msg("You get accuracy of 71.42857142857143\%!")
-                }else if (phase_f.gate % 5 == 0){ 
+                }else if (phase_f.gate % 5 == 0){
                   msg("You get average cross-validation score of 79.08866995073891\%!")
                 }
-              } else if (phase_e.gate%5 == 0){ 
+              } else if (phase_e.gate%5 == 0){
                 if (phase_f.gate % 2 == 0){
                   picture('F1_E3_D4.png', 600)
                 }else if (phase_f.gate % 3 == 0){
@@ -1044,7 +1044,7 @@ createRoom('G1', {
                 }
               }
           }
-          
+
       } else if (phase_d.gate % 2 == 0 || phase_d.gate % 5 == 0){
         msg("Yikes, you took the wrong CSP components and got chance-level performance :( Should've picked components from both ends of the eigenvalue spectrum")
       }
@@ -1053,76 +1053,76 @@ createRoom('G1', {
     } else if (!(phase_b.gate % 3 == 0 ||  phase_b.gate%5 == 0)){
       if (phase_d.gate % 3 == 0){
         if (phase_d.gate % 7 == 0){
-          if (phase_e.gate % 2 == 0){ 
-            if (phase_f.gate % 2 == 0){ 
+          if (phase_e.gate % 2 == 0){
+            if (phase_f.gate % 2 == 0){
               picture('nf_F1_E1A_D2.png', 600)
             }else if (phase_f.gate % 3 == 0){
               msg("You get accuracy of 50\%! That's pretty low :/")
             }else if (phase_f.gate % 5 == 0){
               msg("You get average cross-validation score of 53.49753694581281\%! Yikes D:")
             }
-          } else if (phase_e.gate%3 == 0){ 
-              if (phase_f.gate % 2 == 0){ 
+          } else if (phase_e.gate%3 == 0){
+              if (phase_f.gate % 2 == 0){
                 picture('nf_F1_E1B_D2.png', 600)
-              }else if (phase_f.gate % 3 == 0){ 
+              }else if (phase_f.gate % 3 == 0){
                 msg("You get accuracy of 50\%! That's pretty low :/")
-              }else if (phase_f.gate % 5 == 0){ 
+              }else if (phase_f.gate % 5 == 0){
                 msg("You get average cross-validation score of 0.49334975369458134\%! Yikes D:")
               }
-            } else if (phase_e.gate%5 == 0){ 
-              if (phase_f.gate % 2 == 0){ 
+            } else if (phase_e.gate%5 == 0){
+              if (phase_f.gate % 2 == 0){
                 picture('nf_F1_E3_D2.png', 600)
-              }else if (phase_f.gate % 3 == 0){ 
+              }else if (phase_f.gate % 3 == 0){
                 msg("You get accuracy of 46.42857142857143\%! Yikes D:")
               }else if (phase_f.gate % 5 == 0){
                 msg("You get average cross-validation score of 51.40394088669951\%! Yikes D:")
               }
             }
-          } else if (phase_d.gate % 11 == 0){ 
-            if (phase_e.gate % 2 == 0){ 
+          } else if (phase_d.gate % 11 == 0){
+            if (phase_e.gate % 2 == 0){
               if (phase_f.gate % 2 == 0){
                 picture('nf_F1_E1A_D3.png', 600)
-              }else if (phase_f.gate % 3 == 0){ 
+              }else if (phase_f.gate % 3 == 0){
                 msg("You get accuracy of 75\%!")
-              }else if (phase_f.gate % 5 == 0){ 
+              }else if (phase_f.gate % 5 == 0){
                 msg("You get average cross-validation score of 62.63546798029557\%!")
               }
-            } else if (phase_e.gate%3 == 0){ 
-                if (phase_f.gate % 2 == 0){ 
+            } else if (phase_e.gate%3 == 0){
+                if (phase_f.gate % 2 == 0){
                   picture('nf_F1_E1B_D3.png', 600)
-                }else if (phase_f.gate % 3 == 0){ 
+                }else if (phase_f.gate % 3 == 0){
                   msg("You get accuracy of 60.71428571428571\%!")
                 }else if (phase_f.gate % 5 == 0){
                   msg("You get average cross-validation score of 62.61083743842365\%!")
                 }
-              } else if (phase_e.gate%5 == 0){ 
-                if (phase_f.gate % 2 == 0){ 
+              } else if (phase_e.gate%5 == 0){
+                if (phase_f.gate % 2 == 0){
                   picture('nf_F1_E3_D3.png', 600)
-                }else if (phase_f.gate % 3 == 0){ 
+                }else if (phase_f.gate % 3 == 0){
                   msg("You get accuracy of 71.42857142857143\%!")
                 }else if (phase_f.gate % 5 == 0){
                   msg("You get average cross-validation score of 62.61083743842364\%!")
                 }
               }
-          } else if (phase_d.gate % 13 == 0){ 
-            if (phase_e.gate % 2 == 0){ 
-              if (phase_f.gate % 2 == 0){ 
+          } else if (phase_d.gate % 13 == 0){
+            if (phase_e.gate % 2 == 0){
+              if (phase_f.gate % 2 == 0){
                 picture('nf_F1_E1A_D4.png', 600)
-              }else if (phase_f.gate % 3 == 0){ 
+              }else if (phase_f.gate % 3 == 0){
                 msg("You get accuracy of 75\%!")
-              }else if (phase_f.gate % 5 == 0){ 
+              }else if (phase_f.gate % 5 == 0){
                 msg("You get average cross-validation score of 64.67980295566502\%!")
               }
-            } else if (phase_e.gate%3 == 0){ 
-                if (phase_f.gate % 2 == 0){ 
+            } else if (phase_e.gate%3 == 0){
+                if (phase_f.gate % 2 == 0){
                   picture('nf_F1_E1B_D4.png', 600)
-                }else if (phase_f.gate % 3 == 0){ 
+                }else if (phase_f.gate % 3 == 0){
                   msg("You get accuracy of 75\%!")
                 }else if (phase_f.gate % 5 == 0){
                   msg("You get average cross-validation score of 64.67980295566502\%!")
                 }
-              } else if (phase_e.gate%5 == 0){ 
-                if (phase_f.gate % 2 == 0){ 
+              } else if (phase_e.gate%5 == 0){
+                if (phase_f.gate % 2 == 0){
                   picture('nf_F1_E3_D4.png', 600)
                 }else if (phase_f.gate % 3 == 0){
                   msg("You get accuracy of 75\%!")
